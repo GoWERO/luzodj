@@ -32,10 +32,31 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/images/hero.jpg">
 
+  <link rel="preload" href="assets/fonts/syne-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700&display=optional" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    html.fonts-waiting .hero__title {
+      visibility: hidden;
+    }
+  </style>
+  <script>
+    document.documentElement.classList.add("fonts-waiting");
+    (function () {
+      if (!document.fonts || !document.fonts.load) {
+        document.documentElement.classList.remove("fonts-waiting");
+        return;
+      }
+      document.fonts.load("800 1em Syne").then(function () {
+        document.documentElement.classList.remove("fonts-waiting");
+      }).catch(function () {
+        document.documentElement.classList.remove("fonts-waiting");
+      });
+    })();
+  </script>
 
   <!-- Schema.org — Musician / DJ -->
   <script type="application/ld+json">
@@ -248,6 +269,19 @@
         <p class="mix-grid__footer reveal">
           <a href="https://soundcloud.com/dmente24" id="linkSoundcloud" class="link-arrow" target="_blank" rel="noopener noreferrer">Perfil completo en SoundCloud →</a>
         </p>
+
+        <div class="library reveal" id="biblioteca" aria-labelledby="biblioteca-title">
+          <div class="library__divider" aria-hidden="true"></div>
+          <header class="library__header">
+            <span class="section__label">Biblioteca completa</span>
+            <h3 class="library__title" id="biblioteca-title">Sets y mezclas · archivo LUZO</h3>
+            <p class="library__desc">
+              Sesiones completas alojadas en este sitio. Escucha o descarga cada set — la misma curaduría que llevo a rooftops, bares y venues.
+            </p>
+          </header>
+          <div class="library-filters" id="libraryFilters" role="tablist" aria-label="Filtrar biblioteca"></div>
+          <div class="library-list" id="libraryList" role="tabpanel" aria-label="Archivo de audio"></div>
+        </div>
       </div>
     </section>
 

@@ -107,6 +107,80 @@
   renderFilters();
   renderMixes();
 
+  /* ── Biblioteca completa (audio local) ── */
+  var libraryList = document.getElementById("libraryList");
+  var libraryFilters = document.getElementById("libraryFilters");
+  var libraryActive = "TODOS";
+
+  function renderLibraryFilters(items) {
+    if (!libraryFilters) return;
+    var types = ["TODOS", "set", "mezcla"];
+    libraryFilters.innerHTML = "";
+    types.forEach(function (type) {
+      var label = type === "TODOS" ? "Todos" : type === "set" ? "Sets" : "Mezclas";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "mix-filter" + (libraryActive === type ? " is-active" : "");
+      btn.textContent = label;
+      btn.setAttribute("role", "tab");
+      btn.setAttribute("aria-selected", libraryActive === type ? "true" : "false");
+      btn.setAttribute("aria-controls", "libraryList");
+      btn.addEventListener("click", function () {
+        libraryActive = type;
+        renderLibraryFilters(items);
+        renderLibrary(items);
+      });
+      libraryFilters.appendChild(btn);
+    });
+  }
+
+  function renderLibrary(items) {
+    if (!libraryList) return;
+    libraryList.innerHTML = "";
+
+    items.forEach(function (item) {
+      if (libraryActive !== "TODOS" && item.type !== libraryActive) return;
+
+      var badge = item.type === "set" ? "Set completo" : "Mezcla";
+      var card = document.createElement("article");
+      card.className = "library-card glass reveal";
+      card.setAttribute("data-type", item.type);
+
+      card.innerHTML =
+        '<div class="library-card__meta">' +
+        '<span class="library-card__badge">' + badge + "</span>" +
+        '<span class="library-card__size">' + item.sizeMB + " MB</span>" +
+        "</div>" +
+        "<h4 class=\"library-card__title\">" + escapeHtml(item.title) + "</h4>" +
+        '<audio controls preload="none" src="' + escapeHtml(item.file) + '">' +
+        "Tu navegador no soporta reproducción de audio." +
+        "</audio>" +
+        '<a class="library-card__download" href="' +
+        escapeHtml(item.file) +
+        '" download>Descargar</a>";
+
+      libraryList.appendChild(card);
+    });
+
+    observeReveal(libraryList.querySelectorAll(".reveal"));
+  }
+
+  if (libraryList) {
+    fetch("audio/catalog.json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("catalog");
+        return r.json();
+      })
+      .then(function (items) {
+        renderLibraryFilters(items);
+        renderLibrary(items);
+      })
+      .catch(function () {
+        libraryList.innerHTML =
+          '<p class="library__empty">Biblioteca en actualización. Vuelve pronto.</p>';
+      });
+  }
+
   /* ── Footer year ── */
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
