@@ -8,6 +8,7 @@ desktop.ini
 git-out.txt
 gh-out.txt
 git-status.txt
+deploy-log.txt
 scripts/
 node_modules/
 package.json
