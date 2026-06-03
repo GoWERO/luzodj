@@ -765,13 +765,27 @@ main { position: relative; z-index: 1; }
   margin-bottom: 1rem;
 }
 
-/* Reproductor LUZO */
+/* Reproductor LUZO — custom en móvil, nativo en escritorio */
 .luzo-player {
   margin-top: 0.25rem;
 }
 
 .luzo-player__audio {
   display: none;
+}
+
+@media (min-width: 768px) {
+  .luzo-player--native .luzo-player__shell {
+    display: none;
+  }
+
+  .luzo-player--native .luzo-player__audio {
+    display: block;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    accent-color: var(--accent);
+  }
 }
 
 .luzo-player__shell {
@@ -947,12 +961,26 @@ main { position: relative; z-index: 1; }
 .luzo-player__times {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: 0.35rem;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   color: var(--text-subtle);
   font-variant-numeric: tabular-nums;
+}
+
+.luzo-player__current::after {
+  content: " / ";
+  opacity: 0.45;
+  margin-inline: 0.15rem;
+}
+
+@media (min-width: 768px) {
+  .luzo-player__shell {
+    display: none;
+  }
 }
 
 .luzo-player.is-loading .luzo-player__play {
