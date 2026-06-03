@@ -1,0 +1,15 @@
+.vercel/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.env
+.env.*
+git-out.txt
+gh-out.txt
+git-status.txt
+scripts/
+
+# Carpetas locales de audio (no van al sitio web)
+Mezclas/
+Sets/
