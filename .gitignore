@@ -15,9 +15,9 @@ package.json
 package-lock.json
 assets/images/hero.original.jpg
 
-# Carpetas fuente (copiar con scripts/sync-audio.mjs → audio/)
-Mezclas/
-Sets/
+# Carpetas fuente en la raíz (copiar con scripts/sync-audio.mjs → audio/)
+/Mezclas/
+/Sets/
 
 # audio/ SÍ se despliega — ~300 MB, no ideal para Git móvil lento
 # Si prefieres repo liviano: descomenta la línea siguiente y despliega con `vercel deploy` local
