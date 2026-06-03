@@ -17,6 +17,13 @@
     return div.innerHTML;
   }
 
+  function escapeAttr(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;");
+  }
+
   /* ── Links ── */
   function setHref(id, url) {
     var el = document.getElementById(id);
@@ -155,9 +162,20 @@
         '<audio controls preload="none" src="' + escapeHtml(item.file) + '">' +
         "Tu navegador no soporta reproducción de audio." +
         "</audio>" +
-        '<a class="library-card__download" href="' +
+        '<div class="library-card__actions">' +
+        '<a class="btn btn--download" href="' +
         escapeHtml(item.file) +
-        '" download>Descargar</a>";
+        '" download="' +
+        escapeAttr("LUZO - " + (item.original || item.file.split("/").pop())) +
+        '" aria-label="Descargar ' +
+        escapeAttr(item.title) +
+        '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="18" height="18" aria-hidden="true">' +
+        '<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>' +
+        "</svg>" +
+        "<span>Descargar</span>" +
+        "</a>" +
+        "</div>";
 
       libraryList.appendChild(card);
     });

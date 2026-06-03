@@ -741,17 +741,40 @@ main { position: relative; z-index: 1; }
   border-radius: 8px;
 }
 
-.library-card__download {
-  display: inline-flex;
-  margin-top: 0.75rem;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--accent);
-  transition: opacity 0.25s;
+.library-card__actions {
+  display: flex;
+  margin-top: 1rem;
 }
 
-.library-card__download:hover {
-  opacity: 0.7;
+.btn--download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 16rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  transition: all 0.35s var(--ease);
+}
+
+.btn--download:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 24px var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.btn--download svg {
+  flex-shrink: 0;
 }
 
 .library__empty {
