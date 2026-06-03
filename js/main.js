@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  var config = window.LUZO_CONFIG || {};
+  var win = typeof window !== "undefined" ? window : {};
+  var config = win.LUZO_CONFIG || {};
 
   function soundcloudEmbed(trackUrl) {
     return (
@@ -165,8 +166,8 @@
         (item.subtitle
           ? '<p class="library-card__subtitle">' + escapeHtml(item.subtitle) + "</p>"
           : "") +
-        (global.LuzoPlayer
-          ? global.LuzoPlayer.build(escapeAttr(item.file), escapeAttr(item.title))
+        (win.LuzoPlayer
+          ? win.LuzoPlayer.build(escapeAttr(item.file), escapeAttr(item.title))
           : '<audio controls preload="metadata" playsinline src="' +
             escapeHtml(item.file) +
             '"></audio>') +
@@ -190,8 +191,8 @@
 
     observeReveal(libraryList.querySelectorAll(".reveal"));
 
-    if (global.LuzoPlayer) {
-      global.LuzoPlayer.init(libraryList);
+    if (win.LuzoPlayer) {
+      win.LuzoPlayer.init(libraryList);
     }
   }
 
@@ -229,9 +230,16 @@
             " mezclas</span>";
         }
         renderLibraryFilters(items);
-        renderLibrary(items);
+        try {
+          renderLibrary(items);
+        } catch (err) {
+          console.error("LUZO biblioteca:", err);
+          libraryList.innerHTML =
+            '<p class="library__empty">No se pudo mostrar la biblioteca. Recarga la página.</p>';
+        }
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.error("LUZO catalog:", err);
         libraryList.innerHTML =
           '<p class="library__empty">Biblioteca en actualización. Vuelve pronto.</p>';
       });
