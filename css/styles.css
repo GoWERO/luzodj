@@ -789,11 +789,20 @@ main { position: relative; z-index: 1; }
 }
 
 @media (min-width: 768px) {
-  .luzo-player__shell {
+  .luzo-player__shell,
+  .luzo-player__shell[hidden],
+  .luzo-player--desktop .luzo-player__shell {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
   }
 
-  .luzo-player__audio {
+  .luzo-player__audio,
+  .luzo-player--desktop .luzo-player__audio {
     display: block !important;
     width: 100%;
     height: 48px;

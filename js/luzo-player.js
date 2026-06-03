@@ -14,12 +14,15 @@
 
   function syncPlayerLayout(player, audio) {
     var mobile = isMobileLayout();
+    var shell = player.querySelector(".luzo-player__shell");
     player.classList.toggle("luzo-player--mobile", mobile);
     player.classList.toggle("luzo-player--desktop", !mobile);
     if (mobile) {
       audio.removeAttribute("controls");
+      if (shell) shell.hidden = false;
     } else {
       audio.setAttribute("controls", "");
+      if (shell) shell.hidden = true;
     }
   }
 
@@ -48,8 +51,22 @@
   }
 
   function buildPlayerMarkup(file, title) {
+    if (!isMobileLayout()) {
+      return (
+        '<div class="luzo-player luzo-player--desktop" data-src="' +
+        file +
+        '" data-title="' +
+        title +
+        '">' +
+        '<audio class="luzo-player__audio" controls preload="metadata" playsinline src="' +
+        file +
+        '"></audio>' +
+        "</div>"
+      );
+    }
+
     return (
-      '<div class="luzo-player" data-src="' +
+      '<div class="luzo-player luzo-player--mobile" data-src="' +
       file +
       '" data-title="' +
       title +
@@ -265,7 +282,8 @@
       if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
     });
 
-    if (!player.classList.contains("luzo-player--mobile") || !btn) return;
+    var shell = player.querySelector(".luzo-player__shell");
+    if (!shell || !btn) return;
 
     btn.addEventListener("click", function () {
       if (audio.paused) {
