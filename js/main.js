@@ -198,7 +198,7 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json")
+    fetch("audio/catalog.json?v=3")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
