@@ -149,24 +149,28 @@
   </div>
   <div class="grain" aria-hidden="true"></div>
 
-  <a href="#inicio" class="skip-link">Saltar al contenido</a>
+  <a href="#inicio" class="skip-link" data-i18n="skip">Saltar al contenido</a>
 
   <header class="header" id="header">
     <nav class="nav container" aria-label="Principal">
       <a href="#inicio" class="nav__logo">LUZO</a>
-      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Idioma del sitio" data-i18n-aria="lang.label">
+        <button type="button" class="lang-switch__btn is-active" data-lang-set="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-switch__btn" data-lang-set="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" data-i18n-aria="nav.openMenu">
         <span></span><span></span>
       </button>
       <ul class="nav__menu" id="navMenu">
-        <li><a href="#sobre-mi" class="nav__link">Sobre mí</a></li>
-        <li><a href="#filosofia" class="nav__link">Filosofía</a></li>
-        <li><a href="#soundcloud" class="nav__link">SoundCloud</a></li>
-        <li><a href="#boveda" class="nav__link nav__link--archive" data-open-archive title="Sets y mezclas para escuchar y descargar">Mis mezclas (descargar)</a></li>
-        <li><a href="#ideal-para" class="nav__link">Ideal para</a></li>
-        <li><a href="#servicios" class="nav__link">Servicios</a></li>
-        <li><a href="#proceso" class="nav__link">Proceso</a></li>
-        <li><a href="#experiencia" class="nav__link">Experiencia</a></li>
-        <li><a href="#contacto" class="nav__link nav__link--cta">Contacto</a></li>
+        <li><a href="#sobre-mi" class="nav__link" data-i18n="nav.about">Sobre mí</a></li>
+        <li><a href="#filosofia" class="nav__link" data-i18n="nav.philosophy">Filosofía</a></li>
+        <li><a href="#soundcloud" class="nav__link" data-i18n="nav.soundcloud">SoundCloud</a></li>
+        <li><a href="#boveda" class="nav__link nav__link--archive" data-open-archive data-i18n="nav.archive" data-i18n-title="nav.archiveTitle">Mis mezclas (descargar)</a></li>
+        <li><a href="#ideal-para" class="nav__link" data-i18n="nav.audience">Ideal para</a></li>
+        <li><a href="#servicios" class="nav__link" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="#proceso" class="nav__link" data-i18n="nav.process">Proceso</a></li>
+        <li><a href="#experiencia" class="nav__link" data-i18n="nav.experience">Experiencia</a></li>
+        <li><a href="#contacto" class="nav__link nav__link--cta" data-i18n="nav.contact">Contacto</a></li>
       </ul>
     </nav>
   </header>
@@ -177,19 +181,19 @@
     <section class="hero" id="inicio">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <p class="hero__eyebrow reveal">DJ · Selector · Curador</p>
+          <p class="hero__eyebrow reveal" data-i18n="hero.eyebrow">DJ · Selector · Curador</p>
           <h1 class="hero__title reveal">LUZO</h1>
-          <p class="hero__tagline reveal">DJ &amp; selector de atmósferas sonoras</p>
-          <p class="hero__statement reveal">
+          <p class="hero__tagline reveal" data-i18n="hero.tagline">DJ &amp; selector de atmósferas sonoras</p>
+          <p class="hero__statement reveal" data-i18n="hero.statement">
             House, deep house, organic house y sonidos electrónicos para espacios con identidad.
           </p>
-          <p class="hero__pitch reveal">
+          <p class="hero__pitch reveal" data-i18n="hero.pitch">
             Transformo espacios a través del sonido, creando atmósferas que conectan personas, conversaciones y experiencias.
           </p>
           <div class="hero__actions reveal">
-            <a href="#boveda" class="btn btn--primary" data-open-archive>Mis mezclas (para descargarlas)</a>
-            <a href="#soundcloud" class="btn btn--ghost">SoundCloud</a>
-            <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--ghost" id="heroCta">Hablemos de tu espacio</a>
+            <a href="#boveda" class="btn btn--primary" data-open-archive data-i18n="hero.archive">Mis mezclas (para descargarlas)</a>
+            <a href="#soundcloud" class="btn btn--ghost" data-i18n="nav.soundcloud">SoundCloud</a>
+            <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--ghost" id="heroCta" data-i18n="hero.cta">Hablemos de tu espacio</a>
           </div>
         </div>
         <div class="hero__visual reveal">
@@ -198,6 +202,7 @@
               <img
                 src="assets/images/hero.jpg"
                 alt="LUZO — DJ y selector de atmósferas sonoras en sesión"
+                data-i18n-alt="hero.imgAlt"
                 class="hero__photo"
                 width="720"
                 height="900"
@@ -217,30 +222,30 @@
     <section class="section section--about" id="sobre-mi">
       <div class="container">
         <header class="section__header reveal">
-          <span class="section__label">Sobre mí</span>
-          <h2 class="section__title">Música con intención</h2>
+          <span class="section__label" data-i18n="about.label">Sobre mí</span>
+          <h2 class="section__title" data-i18n="about.title">Música con intención</h2>
         </header>
         <div class="about__layout">
           <div class="about__prose reveal">
-            <p class="about__lead">Nací en León, Guanajuato, y desde muy joven desarrollé una fascinación profunda por la música y el poder que tiene para transformar la manera en que vivimos un espacio.</p>
-            <p>Con el tiempo descubrí que detrás de cada gran sesión existe mucho más que una selección de canciones. Existe una <em>intención</em>. Una <em>narrativa</em>. Una energía capaz de conectar personas que nunca se habían visto y convertir una noche cualquiera en una experiencia memorable.</p>
-            <p>A los 19 años tuve mi primer acercamiento al arte de mezclar música de la mano de un DJ colombiano que me mostró una nueva forma de entender el sonido. Desde entonces he dedicado incontables horas a explorar géneros, descubrir artistas y desarrollar un criterio musical propio.</p>
+            <p class="about__lead" data-i18n="about.lead">Nací en León, Guanajuato, y desde muy joven desarrollé una fascinación profunda por la música y el poder que tiene para transformar la manera en que vivimos un espacio.</p>
+            <p data-i18n-html="about.p1">Con el tiempo descubrí que detrás de cada gran sesión existe mucho más que una selección de canciones. Existe una <em>intención</em>. Una <em>narrativa</em>. Una energía capaz de conectar personas que nunca se habían visto y convertir una noche cualquiera en una experiencia memorable.</p>
+            <p data-i18n="about.p2">A los 19 años tuve mi primer acercamiento al arte de mezclar música de la mano de un DJ colombiano que me mostró una nueva forma de entender el sonido. Desde entonces he dedicado incontables horas a explorar géneros, descubrir artistas y desarrollar un criterio musical propio.</p>
           </div>
           <div class="about__prose reveal">
-            <p>Hoy entiendo el DJing como una forma de curaduría. Mi interés no está únicamente en hacer bailar a la gente, sino en construir atmósferas que generen conexión, identidad y presencia.</p>
-            <p>Creo que la música tiene la capacidad de crear comunidad. De acompañar conversaciones, encuentros y momentos que permanecen mucho después de que termina la última canción.</p>
-            <p class="about__closing">Esa es la experiencia que busco crear cada vez que me presento frente a una audiencia.</p>
+            <p data-i18n="about.p3">Hoy entiendo el DJing como una forma de curaduría. Mi interés no está únicamente en hacer bailar a la gente, sino en construir atmósferas que generen conexión, identidad y presencia.</p>
+            <p data-i18n="about.p4">Creo que la música tiene la capacidad de crear comunidad. De acompañar conversaciones, encuentros y momentos que permanecen mucho después de que termina la última canción.</p>
+            <p class="about__closing" data-i18n="about.closing">Esa es la experiencia que busco crear cada vez que me presento frente a una audiencia.</p>
           </div>
         </div>
         <blockquote class="quote glass reveal">
-          <p>La música tiene la capacidad de crear comunidad, identidad y experiencias que permanecen mucho después de que termina la última canción.</p>
+          <p data-i18n="about.quote">La música tiene la capacidad de crear comunidad, identidad y experiencias que permanecen mucho después de que termina la última canción.</p>
         </blockquote>
-        <ul class="values reveal" aria-label="Valores">
-          <li class="values__item"><span class="values__dot"></span>Criterio musical</li>
-          <li class="values__item"><span class="values__dot"></span>Sensibilidad estética</li>
-          <li class="values__item"><span class="values__dot"></span>Profesionalismo</li>
-          <li class="values__item"><span class="values__dot"></span>Curaduría</li>
-          <li class="values__item"><span class="values__dot"></span>Lectura del ambiente</li>
+        <ul class="values reveal" data-i18n-aria="values.label">
+          <li class="values__item"><span class="values__dot"></span><span data-i18n="values.1">Criterio musical</span></li>
+          <li class="values__item"><span class="values__dot"></span><span data-i18n="values.2">Sensibilidad estética</span></li>
+          <li class="values__item"><span class="values__dot"></span><span data-i18n="values.3">Profesionalismo</span></li>
+          <li class="values__item"><span class="values__dot"></span><span data-i18n="values.4">Curaduría</span></li>
+          <li class="values__item"><span class="values__dot"></span><span data-i18n="values.5">Lectura del ambiente</span></li>
         </ul>
       </div>
     </section>
@@ -250,14 +255,14 @@
       <div class="container">
         <div class="philosophy glass reveal">
           <header class="philosophy__header">
-            <span class="section__label">Mi filosofía</span>
-            <h2 class="section__title">Cada espacio merece su propia banda sonora</h2>
+            <span class="section__label" data-i18n="philosophy.label">Mi filosofía</span>
+            <h2 class="section__title" data-i18n="philosophy.title">Cada espacio merece su propia banda sonora</h2>
           </header>
           <div class="philosophy__body">
-            <p class="philosophy__lead">No creo en playlists genéricas.</p>
-            <p>Cada espacio tiene una energía distinta.</p>
-            <p>La música correcta puede transformar una conversación, elevar una experiencia gastronómica o convertir una noche ordinaria en un recuerdo.</p>
-            <p class="philosophy__closing">Mi trabajo consiste en encontrar esa banda sonora.</p>
+            <p class="philosophy__lead" data-i18n="philosophy.lead">No creo en playlists genéricas.</p>
+            <p data-i18n="philosophy.p1">Cada espacio tiene una energía distinta.</p>
+            <p data-i18n="philosophy.p2">La música correcta puede transformar una conversación, elevar una experiencia gastronómica o convertir una noche ordinaria en un recuerdo.</p>
+            <p class="philosophy__closing" data-i18n="philosophy.closing">Mi trabajo consiste en encontrar esa banda sonora.</p>
           </div>
         </div>
       </div>
@@ -267,14 +272,14 @@
     <section class="section section--mixes" id="soundcloud">
       <div class="container">
         <header class="section__header reveal">
-          <span class="section__label">SoundCloud</span>
-          <h2 class="section__title">Selecciones destacadas</h2>
-          <p class="section__desc">Muestras y sesiones en SoundCloud. Explora por categoría y conoce la dirección sonora de LUZO.</p>
+          <span class="section__label" data-i18n="soundcloud.label">SoundCloud</span>
+          <h2 class="section__title" data-i18n="soundcloud.title">Selecciones destacadas</h2>
+          <p class="section__desc" data-i18n="soundcloud.desc">Muestras y sesiones en SoundCloud. Explora por categoría y conoce la dirección sonora de LUZO.</p>
         </header>
-        <div class="mix-filters reveal" id="mixFilters" role="tablist" aria-label="Filtrar selecciones SoundCloud"></div>
-        <div class="mix-grid" id="mixGrid" role="tabpanel" aria-label="Selecciones SoundCloud"></div>
+        <div class="mix-filters reveal" id="mixFilters" role="tablist" data-i18n-aria="soundcloud.filtersAria"></div>
+        <div class="mix-grid" id="mixGrid" role="tabpanel" data-i18n-aria="soundcloud.gridAria"></div>
         <p class="mix-grid__footer reveal">
-          <a href="https://soundcloud.com/dmente24" id="linkSoundcloud" class="link-arrow" target="_blank" rel="noopener noreferrer">Perfil completo en SoundCloud →</a>
+          <a href="https://soundcloud.com/dmente24" id="linkSoundcloud" class="link-arrow" target="_blank" rel="noopener noreferrer" data-i18n="soundcloud.profile">Perfil completo en SoundCloud →</a>
         </p>
       </div>
     </section>
@@ -283,39 +288,39 @@
     <section class="section section--audience" id="ideal-para">
       <div class="container">
         <header class="section__header section__header--center reveal">
-          <span class="section__label">Para quién es mi propuesta</span>
-          <h2 class="section__title">Ideal para</h2>
+          <span class="section__label" data-i18n="audience.label">Para quién es mi propuesta</span>
+          <h2 class="section__title" data-i18n="audience.title">Ideal para</h2>
         </header>
         <div class="audience-grid">
           <article class="audience-card glass reveal">
             <span class="audience-card__icon">◇</span>
-            <h3>Rooftops</h3>
-            <p>Atardeceres, vistas y transiciones sonoras que acompañan el horizonte.</p>
+            <h3 data-i18n="audience.1.title">Rooftops</h3>
+            <p data-i18n="audience.1.desc">Atardeceres, vistas y transiciones sonoras que acompañan el horizonte.</p>
           </article>
           <article class="audience-card glass reveal">
             <span class="audience-card__icon">◇</span>
-            <h3>Cocktail Bars</h3>
-            <p>Elegancia, conversación y presencia sin invadir la experiencia.</p>
+            <h3 data-i18n="audience.2.title">Cocktail Bars</h3>
+            <p data-i18n="audience.2.desc">Elegancia, conversación y presencia sin invadir la experiencia.</p>
           </article>
           <article class="audience-card glass reveal">
             <span class="audience-card__icon">◇</span>
-            <h3>Restaurantes</h3>
-            <p>Curaduría que eleva la experiencia gastronómica con sensibilidad.</p>
+            <h3 data-i18n="audience.3.title">Restaurantes</h3>
+            <p data-i18n="audience.3.desc">Curaduría que eleva la experiencia gastronómica con sensibilidad.</p>
           </article>
           <article class="audience-card glass reveal">
             <span class="audience-card__icon">◇</span>
-            <h3>Eventos privados</h3>
-            <p>Ambientes íntimos con identidad musical personalizada.</p>
+            <h3 data-i18n="audience.4.title">Eventos privados</h3>
+            <p data-i18n="audience.4.desc">Ambientes íntimos con identidad musical personalizada.</p>
           </article>
           <article class="audience-card glass reveal">
             <span class="audience-card__icon">◇</span>
-            <h3>Aperturas / Warm-Ups</h3>
-            <p>Apertura gradual que prepara la noche con criterio y flow.</p>
+            <h3 data-i18n="audience.5.title">Aperturas / Warm-Ups</h3>
+            <p data-i18n="audience.5.desc">Apertura gradual que prepara la noche con criterio y flow.</p>
           </article>
           <article class="audience-card glass reveal">
             <span class="audience-card__icon">◇</span>
-            <h3>Espacios con identidad artística</h3>
-            <p>Locales que buscan diferenciarse a través del sonido.</p>
+            <h3 data-i18n="audience.6.title">Espacios con identidad artística</h3>
+            <p data-i18n="audience.6.desc">Locales que buscan diferenciarse a través del sonido.</p>
           </article>
         </div>
       </div>
@@ -325,39 +330,39 @@
     <section class="section section--services" id="servicios">
       <div class="container">
         <header class="section__header reveal">
-          <span class="section__label">Servicios</span>
-          <h2 class="section__title">Qué puedo ofrecer</h2>
+          <span class="section__label" data-i18n="services.label">Servicios</span>
+          <h2 class="section__title" data-i18n="services.title">Qué puedo ofrecer</h2>
         </header>
         <div class="services">
           <article class="service-card glass reveal">
             <span class="service-card__num">01</span>
-            <h3>Warm up sets</h3>
-            <p>Apertura gradual que prepara el ambiente sin forzar la energía.</p>
+            <h3 data-i18n="services.1.title">Warm up sets</h3>
+            <p data-i18n="services.1.desc">Apertura gradual que prepara el ambiente sin forzar la energía.</p>
           </article>
           <article class="service-card glass reveal">
             <span class="service-card__num">02</span>
-            <h3>Música para bares y restaurantes</h3>
-            <p>Selección que acompaña la experiencia social sin invadir la conversación.</p>
+            <h3 data-i18n="services.2.title">Música para bares y restaurantes</h3>
+            <p data-i18n="services.2.desc">Selección que acompaña la experiencia social sin invadir la conversación.</p>
           </article>
           <article class="service-card glass reveal">
             <span class="service-card__num">03</span>
-            <h3>Curaduría sonora</h3>
-            <p>Identidad musical, mood boards y dirección artística del sonido.</p>
+            <h3 data-i18n="services.3.title">Curaduría sonora</h3>
+            <p data-i18n="services.3.desc">Identidad musical, mood boards y dirección artística del sonido.</p>
           </article>
           <article class="service-card glass reveal">
             <span class="service-card__num">04</span>
-            <h3>Sesiones sunset</h3>
-            <p>Atmósferas cálidas para rooftops y la transición del día a la noche.</p>
+            <h3 data-i18n="services.4.title">Sesiones sunset</h3>
+            <p data-i18n="services.4.desc">Atmósferas cálidas para rooftops y la transición del día a la noche.</p>
           </article>
           <article class="service-card glass reveal">
             <span class="service-card__num">05</span>
-            <h3>Noches house / deep house</h3>
-            <p>Grooves profundos para noches con presencia y carácter.</p>
+            <h3 data-i18n="services.5.title">Noches house / deep house</h3>
+            <p data-i18n="services.5.desc">Grooves profundos para noches con presencia y carácter.</p>
           </article>
           <article class="service-card glass reveal">
             <span class="service-card__num">06</span>
-            <h3>Ambientes experimentales</h3>
-            <p>Sonidos alternativos para venues que buscan sorprender.</p>
+            <h3 data-i18n="services.6.title">Ambientes experimentales</h3>
+            <p data-i18n="services.6.desc">Sonidos alternativos para venues que buscan sorprender.</p>
           </article>
         </div>
       </div>
@@ -367,36 +372,36 @@
     <section class="section section--process" id="proceso">
       <div class="container">
         <header class="section__header reveal">
-          <span class="section__label">Metodología</span>
-          <h2 class="section__title">Cómo trabajo</h2>
+          <span class="section__label" data-i18n="process.label">Metodología</span>
+          <h2 class="section__title" data-i18n="process.title">Cómo trabajo</h2>
         </header>
         <ol class="timeline">
           <li class="timeline__item reveal">
             <span class="timeline__step">01</span>
             <div class="timeline__content glass">
-              <h3>Conozco tu espacio</h3>
-              <p>Entiendo la esencia, el público y la personalidad de tu venue o evento.</p>
+              <h3 data-i18n="process.1.title">Conozco tu espacio</h3>
+              <p data-i18n="process.1.desc">Entiendo la esencia, el público y la personalidad de tu venue o evento.</p>
             </div>
           </li>
           <li class="timeline__item reveal">
             <span class="timeline__step">02</span>
             <div class="timeline__content glass">
-              <h3>Entiendo la atmósfera que buscas</h3>
-              <p>Íntima, expansiva, relajada, sofisticada o con energía progresiva.</p>
+              <h3 data-i18n="process.2.title">Entiendo la atmósfera que buscas</h3>
+              <p data-i18n="process.2.desc">Íntima, expansiva, relajada, sofisticada o con energía progresiva.</p>
             </div>
           </li>
           <li class="timeline__item reveal">
             <span class="timeline__step">03</span>
             <div class="timeline__content glass">
-              <h3>Diseño una selección musical personalizada</h3>
-              <p>Curaduría con intención — no un set genérico, sino una narrativa sonora.</p>
+              <h3 data-i18n="process.3.title">Diseño una selección musical personalizada</h3>
+              <p data-i18n="process.3.desc">Curaduría con intención — no un set genérico, sino una narrativa sonora.</p>
             </div>
           </li>
           <li class="timeline__item reveal">
             <span class="timeline__step">04</span>
             <div class="timeline__content glass">
-              <h3>Creamos una experiencia memorable</h3>
-              <p>Una noche que tu público recordará mucho después de la última canción.</p>
+              <h3 data-i18n="process.4.title">Creamos una experiencia memorable</h3>
+              <p data-i18n="process.4.desc">Una noche que tu público recordará mucho después de la última canción.</p>
             </div>
           </li>
         </ol>
@@ -408,12 +413,12 @@
       <div class="container">
         <div class="experience glass reveal">
           <header class="experience__header">
-            <span class="section__label">Trayectoria</span>
-            <h2 class="section__title" id="experiencia-title">Experiencia</h2>
+            <span class="section__label" data-i18n="experience.label">Trayectoria</span>
+            <h2 class="section__title" id="experiencia-title" data-i18n="experience.title">Experiencia</h2>
           </header>
           <div class="experience__body">
-            <p>Aunque mi trayectoria continúa construyéndose, he dedicado años a desarrollar criterio musical, explorar nuevos sonidos y perfeccionar la capacidad de leer la energía de un espacio.</p>
-            <p>Mi enfoque combina curaduría, sensibilidad estética y una búsqueda constante de experiencias memorables a través de la música.</p>
+            <p data-i18n="experience.p1">Aunque mi trayectoria continúa construyéndose, he dedicado años a desarrollar criterio musical, explorar nuevos sonidos y perfeccionar la capacidad de leer la energía de un espacio.</p>
+            <p data-i18n="experience.p2">Mi enfoque combina curaduría, sensibilidad estética y una búsqueda constante de experiencias memorables a través de la música.</p>
           </div>
         </div>
       </div>
@@ -424,18 +429,18 @@
       <div class="container">
         <div class="contact-panel glass reveal">
           <header class="contact-panel__header">
-            <span class="section__label">Contacto</span>
-            <h2 class="section__title" id="contacto-title">¿Listo para crear la atmósfera perfecta?</h2>
-            <p>Cuéntame qué experiencia quieres construir y prepararé una propuesta musical pensada específicamente para tu espacio.</p>
+            <span class="section__label" data-i18n="contact.label">Contacto</span>
+            <h2 class="section__title" id="contacto-title" data-i18n="contact.title">¿Listo para crear la atmósfera perfecta?</h2>
+            <p data-i18n="contact.desc">Cuéntame qué experiencia quieres construir y prepararé una propuesta musical pensada específicamente para tu espacio.</p>
           </header>
           <div class="contact-panel__actions">
-            <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--primary btn--lg" id="linkWhatsapp">Hablemos de tu espacio</a>
+            <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--primary btn--lg" id="linkWhatsapp" data-i18n="contact.cta">Hablemos de tu espacio</a>
             <div class="contact-panel__secondary">
               <a href="https://www.instagram.com/andres._zm/" class="contact-link" id="linkInstagram" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor" stroke="none"/></svg>
                 Instagram
               </a>
-              <a href="mailto:hola@luzodj.com" class="contact-link" id="linkEmail" aria-label="Enviar correo a hola@luzodj.com">
+              <a href="mailto:hola@luzodj.com" class="contact-link" id="linkEmail" data-i18n-aria="contact.emailAria">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
                 hola@luzodj.com
               </a>
@@ -449,15 +454,15 @@
     <section class="section section--vault archive-panel" id="boveda" hidden aria-labelledby="boveda-title">
       <div class="container">
         <header class="section__header reveal">
-          <span class="section__label">Mis mezclas (para descargarlas)</span>
-          <h2 class="section__title" id="boveda-title">Escucha o descarga cada sesión</h2>
-          <p class="section__desc">
+          <span class="section__label" data-i18n="archive.label">Mis mezclas (para descargarlas)</span>
+          <h2 class="section__title" id="boveda-title" data-i18n="archive.title">Escucha o descarga cada sesión</h2>
+          <p class="section__desc" data-i18n="archive.desc">
             Sets y mezclas en alta fidelidad. Reproduce en el navegador o descarga cada sesión.
           </p>
         </header>
         <div class="vault-stats reveal" id="vaultStats" hidden></div>
-        <div class="library-filters reveal" id="libraryFilters" role="tablist" aria-label="Filtrar mis mezclas para descargar" hidden></div>
-        <div class="library-list" id="libraryList" role="tabpanel" aria-label="Mis mezclas para descargar, LUZO" hidden></div>
+        <div class="library-filters reveal" id="libraryFilters" role="tablist" data-i18n-aria="archive.filtersAria" hidden></div>
+        <div class="library-list" id="libraryList" role="tabpanel" data-i18n-aria="archive.listAria" hidden></div>
       </div>
     </section>
 
@@ -466,12 +471,13 @@
   <footer class="footer">
     <div class="container footer__inner">
       <span class="footer__brand">LUZO</span>
-      <p class="footer__tagline">DJ · Selector · Curador de atmósferas</p>
-      <span class="footer__copy">&copy; <span id="year"></span> LUZO. Todos los derechos reservados.</span>
+      <p class="footer__tagline" data-i18n="footer.tagline">DJ · Selector · Curador de atmósferas</p>
+      <span class="footer__copy">&copy; <span id="year"></span> LUZO. <span data-i18n="footer.copy">Todos los derechos reservados.</span></span>
     </div>
   </footer>
 
-  <script src="js/luzo-player.js?v=11" defer></script>
-  <script src="js/main.js?v=11" defer></script>
+  <script src="js/i18n.js?v=12" defer></script>
+  <script src="js/luzo-player.js?v=12" defer></script>
+  <script src="js/main.js?v=12" defer></script>
 </body>
 </html>

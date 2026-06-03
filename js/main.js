@@ -4,6 +4,10 @@
   var win = typeof window !== "undefined" ? window : {};
   var config = win.LUZO_CONFIG || {};
 
+  function t(key, vars) {
+    return win.LuzoI18n ? win.LuzoI18n.t(key, vars) : key;
+  }
+
   function soundcloudEmbed(trackUrl) {
     return (
       "https://w.soundcloud.com/player/?url=" +
@@ -32,10 +36,15 @@
   }
 
   setHref("linkInstagram", config.instagram);
-  setHref("linkWhatsapp", config.whatsapp);
   setHref("linkEmail", config.email);
   setHref("linkSoundcloud", config.soundcloud);
-  setHref("heroCta", config.whatsapp);
+  if (win.LuzoI18n) {
+    setHref("linkWhatsapp", win.LuzoI18n.whatsappUrl());
+    setHref("heroCta", win.LuzoI18n.whatsappUrl());
+  } else {
+    setHref("linkWhatsapp", config.whatsapp);
+    setHref("heroCta", config.whatsapp);
+  }
 
   /* ── Mixes grid + filters ── */
   var mixes = config.mixes || [];
@@ -59,7 +68,7 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "mix-filter" + (cat === activeFilter ? " is-active" : "");
-      btn.textContent = cat;
+      btn.textContent = cat === "TODAS" ? t("filter.all") : cat;
       btn.setAttribute("role", "tab");
       btn.setAttribute("aria-selected", cat === activeFilter ? "true" : "false");
       btn.setAttribute("aria-controls", "mixGrid");
@@ -86,11 +95,16 @@
     if (!mixGrid) return;
     mixGrid.innerHTML = "";
 
-    mixes.forEach(function (mix) {
+    mixes.forEach(function (mix, idx) {
       var embed = soundcloudEmbed(mix.url);
       var featured = mix.featured ? " mix-tile--featured" : "";
       var badgeClass = mix.featured ? " mix-tile__badge--featured" : "";
-      var badgeLabel = mix.featured ? "Principal · " + mix.category : mix.category;
+      var badgeLabel = mix.featured
+        ? t("mix.featured") + " · " + mix.category
+        : mix.category;
+      var desc = win.LuzoI18n
+        ? win.LuzoI18n.mixDescription(idx)
+        : mix.description;
 
       var article = document.createElement("article");
       article.className = "mix-tile glass reveal" + featured;
@@ -100,7 +114,7 @@
         '<div class="mix-tile__head">' +
         '<span class="mix-tile__badge' + badgeClass + '">' + escapeHtml(badgeLabel) + "</span>" +
         "<h3 class=\"mix-tile__title\">" + escapeHtml(mix.title) + "</h3>" +
-        '<p class="mix-tile__desc">' + escapeHtml(mix.description) + "</p>" +
+        '<p class="mix-tile__desc">' + escapeHtml(desc) + "</p>" +
         "</div>" +
         '<div class="mix-tile__player">' +
         '<iframe loading="lazy" title="' + escapeHtml(mix.title) + '" allow="autoplay" src="' + embed + '"></iframe>' +
@@ -119,6 +133,20 @@
   var libraryList = document.getElementById("libraryList");
   var libraryFilters = document.getElementById("libraryFilters");
   var libraryActive = "TODOS";
+  var catalogItems = null;
+
+  function renderVaultStats(items) {
+    var statsEl = document.getElementById("vaultStats");
+    if (!statsEl) return;
+    var sets = items.filter(function (i) {
+      return i.type === "set";
+    }).length;
+    var mezclas = items.length - sets;
+    statsEl.innerHTML =
+      '<p class="vault-stats__summary">' +
+      t("vault.stats", { n: items.length, sets: sets, mezclas: mezclas }) +
+      "</p>";
+  }
 
   function renderLibraryFilters(items) {
     if (!libraryFilters) return;
@@ -126,7 +154,11 @@
     libraryFilters.innerHTML = "";
     types.forEach(function (type) {
       var label =
-        type === "TODOS" ? "Todos" : type === "set" ? "Sets completos" : "Mezclas";
+        type === "TODOS"
+          ? t("filter.allLibrary")
+          : type === "set"
+            ? t("filter.sets")
+            : t("filter.mixes");
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "mix-filter" + (libraryActive === type ? " is-active" : "");
@@ -150,7 +182,7 @@
     items.forEach(function (item) {
       if (libraryActive !== "TODOS" && item.type !== libraryActive) return;
 
-      var typeLabel = item.type === "set" ? "Set completo" : "Mezcla";
+      var typeLabel = item.type === "set" ? t("library.set") : t("library.mix");
       var genreLabel = item.genre || typeLabel;
       var card = document.createElement("article");
       card.className = "library-card glass reveal";
@@ -176,13 +208,15 @@
         escapeHtml(item.file) +
         '" download="' +
         escapeAttr("LUZO - " + (item.original || item.file.split("/").pop())) +
-        '" aria-label="Descargar ' +
-        escapeAttr(item.title) +
+        '" aria-label="' +
+        escapeAttr(t("library.downloadAria") + " " + item.title) +
         '">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="18" height="18" aria-hidden="true">' +
         '<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>' +
         "</svg>" +
-        "<span>Descargar</span>" +
+        "<span>" +
+        escapeHtml(t("library.download")) +
+        "</span>" +
         "</a>" +
         "</div>";
 
@@ -205,28 +239,18 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json?v=11")
+    fetch("audio/catalog.json?v=12")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
       })
       .then(function (items) {
+        catalogItems = items;
         var statsEl = document.getElementById("vaultStats");
         if (statsEl) {
           statsEl.removeAttribute("aria-hidden");
-          var sets = items.filter(function (i) {
-            return i.type === "set";
-          }).length;
-          var mezclas = items.length - sets;
           statsEl.removeAttribute("hidden");
-          statsEl.innerHTML =
-            '<p class="vault-stats__summary">' +
-            items.length +
-            " sesiones · " +
-            sets +
-            " sets · " +
-            mezclas +
-            " mezclas</p>";
+          renderVaultStats(items);
         }
         renderLibraryFilters(items);
         try {
@@ -234,13 +258,13 @@
         } catch (err) {
           console.error("LUZO biblioteca:", err);
           libraryList.innerHTML =
-            '<p class="library__empty">No se pudo mostrar la biblioteca. Recarga la página.</p>';
+            '<p class="library__empty">' + escapeHtml(t("library.empty")) + "</p>";
         }
       })
       .catch(function (err) {
         console.error("LUZO catalog:", err);
         libraryList.innerHTML =
-          '<p class="library__empty">Biblioteca en actualización. Vuelve pronto.</p>';
+          '<p class="library__empty">' + escapeHtml(t("library.updating")) + "</p>";
       });
   }
 
@@ -417,4 +441,19 @@
   }
 
   observeReveal();
+
+  win.addEventListener("luzo:langchange", function () {
+    if (win.LuzoI18n) {
+      setHref("linkWhatsapp", win.LuzoI18n.whatsappUrl());
+      setHref("heroCta", win.LuzoI18n.whatsappUrl());
+    }
+    renderFilters();
+    filterMixes();
+    renderMixes();
+    if (catalogItems) {
+      renderVaultStats(catalogItems);
+      renderLibraryFilters(catalogItems);
+      renderLibrary(catalogItems);
+    }
+  });
 })();
