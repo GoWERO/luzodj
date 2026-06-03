@@ -765,33 +765,25 @@ main { position: relative; z-index: 1; }
   margin-bottom: 1rem;
 }
 
-/* Reproductor LUZO — custom en móvil, nativo en escritorio */
+/* Reproductor LUZO — misma UI en móvil y escritorio */
 .luzo-player {
   margin-top: 0.25rem;
+  width: 100%;
 }
 
 .luzo-player__audio {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .luzo-player--native .luzo-player__shell {
-    display: none;
-  }
-
-  .luzo-player--native .luzo-player__audio {
-    display: block;
-    width: 100%;
-    height: 48px;
-    border-radius: 8px;
-    accent-color: var(--accent);
-  }
+  display: none !important;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .luzo-player__shell {
   display: flex;
   align-items: center;
   gap: 0.875rem;
+  width: 100%;
   padding: 0.875rem 1rem;
   border-radius: var(--radius-soft);
   border: 1px solid var(--glass-border);
@@ -880,33 +872,45 @@ main { position: relative; z-index: 1; }
 }
 
 .luzo-player__main {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
+  width: 100%;
 }
 
 .luzo-player__progress {
   position: relative;
-  height: 1.25rem;
+  width: 100%;
+  height: 1.75rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+}
+
+.luzo-player__progress:focus-visible .luzo-player__thumb {
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 0 16px var(--accent-glow);
 }
 
 .luzo-player__progress-track {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   height: 6px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: visible;
 }
 
 .luzo-player__progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 100%;
   width: 0%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--accent-warm), var(--accent));
   transition: width 0.12s linear;
+  pointer-events: none;
 }
 
 .luzo-player__progress-glow {
@@ -923,64 +927,39 @@ main { position: relative; z-index: 1; }
   transition: width 0.12s linear;
 }
 
-.luzo-player__seek {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 1.25rem;
-  margin: 0;
-  background: transparent;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-}
-
-.luzo-player__seek::-webkit-slider-thumb {
-  -webkit-appearance: none;
+.luzo-player__thumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: var(--accent);
   border: 2px solid var(--bg);
   box-shadow: 0 0 12px var(--accent-glow);
-}
-
-.luzo-player__seek::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg);
-  box-shadow: 0 0 12px var(--accent-glow);
-}
-
-.luzo-player__seek::-webkit-slider-runnable-track {
-  background: transparent;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: left 0.12s linear;
 }
 
 .luzo-player__times {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.35rem;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--text-subtle);
   font-variant-numeric: tabular-nums;
 }
 
-.luzo-player__current::after {
-  content: " / ";
+.luzo-player__sep {
   opacity: 0.45;
-  margin-inline: 0.15rem;
 }
 
-@media (min-width: 768px) {
-  .luzo-player__shell {
-    display: none;
-  }
+.luzo-player__duration {
+  margin-left: auto;
 }
 
 .luzo-player.is-loading .luzo-player__play {
