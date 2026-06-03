@@ -9,6 +9,10 @@ git-out.txt
 gh-out.txt
 git-status.txt
 scripts/
+node_modules/
+package.json
+package-lock.json
+assets/images/hero.original.jpg
 
 # Carpetas locales de audio (no van al sitio web)
 Mezclas/
