@@ -1,0 +1,19 @@
+{
+  "name": "LUZO — DJ & Selector",
+  "short_name": "LUZO",
+  "description": "House, deep house y mezclas para descargar",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070708",
+  "theme_color": "#070708",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "/assets/images/hero.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

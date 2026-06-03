@@ -765,10 +765,203 @@ main { position: relative; z-index: 1; }
   margin-bottom: 1rem;
 }
 
-.library-card audio {
+/* Reproductor LUZO */
+.luzo-player {
+  margin-top: 0.25rem;
+}
+
+.luzo-player__audio {
+  display: none;
+}
+
+.luzo-player__shell {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--glass-border);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s;
+}
+
+.luzo-player.is-active .luzo-player__shell,
+.luzo-player.is-playing .luzo-player__shell {
+  border-color: rgba(228, 168, 83, 0.35);
+  box-shadow: 0 0 32px var(--accent-soft);
+}
+
+.luzo-player__play {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 50%;
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+
+.luzo-player__play:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 24px var(--accent-glow);
+}
+
+.luzo-player__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.luzo-player__icon--pause {
+  display: none;
+}
+
+.luzo-player.is-playing .luzo-player__icon--play {
+  display: none;
+}
+
+.luzo-player.is-playing .luzo-player__icon--pause {
+  display: block;
+}
+
+.luzo-player__viz {
+  display: none;
+  align-items: flex-end;
+  gap: 3px;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 480px) {
+  .luzo-player__viz {
+    display: flex;
+  }
+}
+
+.luzo-player__viz span {
+  width: 3px;
+  height: 35%;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-warm));
+  opacity: 0.45;
+  transition: height 0.2s;
+}
+
+.luzo-player.is-playing .luzo-player__viz span {
+  opacity: 1;
+  animation: luzo-viz 0.75s var(--ease) infinite;
+}
+
+.luzo-player.is-playing .luzo-player__viz span:nth-child(2) { animation-delay: 0.12s; }
+.luzo-player.is-playing .luzo-player__viz span:nth-child(3) { animation-delay: 0.24s; }
+.luzo-player.is-playing .luzo-player__viz span:nth-child(4) { animation-delay: 0.08s; }
+.luzo-player.is-playing .luzo-player__viz span:nth-child(5) { animation-delay: 0.18s; }
+
+@keyframes luzo-viz {
+  0%, 100% { height: 25%; }
+  50% { height: 100%; }
+}
+
+.luzo-player__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.luzo-player__progress {
+  position: relative;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.luzo-player__progress-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.luzo-player__progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent));
+  transition: width 0.12s linear;
+}
+
+.luzo-player__progress-glow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 14px;
+  width: 0%;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--accent-glow);
+  filter: blur(8px);
+  pointer-events: none;
+  transition: width 0.12s linear;
+}
+
+.luzo-player__seek {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  height: 48px;
-  border-radius: 8px;
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.luzo-player__seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.luzo-player__seek::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.luzo-player__seek::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.luzo-player__times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.luzo-player.is-loading .luzo-player__play {
+  animation: luzo-pulse 1s ease infinite;
+}
+
+@keyframes luzo-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
 }
 
 .library-card__actions {

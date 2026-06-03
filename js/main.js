@@ -165,9 +165,11 @@
         (item.subtitle
           ? '<p class="library-card__subtitle">' + escapeHtml(item.subtitle) + "</p>"
           : "") +
-        '<audio controls preload="none" src="' + escapeHtml(item.file) + '">' +
-        "Tu navegador no soporta reproducción de audio." +
-        "</audio>" +
+        (global.LuzoPlayer
+          ? global.LuzoPlayer.build(escapeAttr(item.file), escapeAttr(item.title))
+          : '<audio controls preload="metadata" playsinline src="' +
+            escapeHtml(item.file) +
+            '"></audio>') +
         '<div class="library-card__actions">' +
         '<a class="btn btn--download" href="' +
         escapeHtml(item.file) +
@@ -187,6 +189,10 @@
     });
 
     observeReveal(libraryList.querySelectorAll(".reveal"));
+
+    if (global.LuzoPlayer) {
+      global.LuzoPlayer.init(libraryList);
+    }
   }
 
   var archivePanel = document.getElementById("boveda");
@@ -198,7 +204,7 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json?v=3")
+    fetch("audio/catalog.json?v=4")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
