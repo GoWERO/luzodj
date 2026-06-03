@@ -1,5 +1,5 @@
 /**
- * Reproductor LUZO — misma UI en móvil y escritorio + Media Session
+ * Reproductor LUZO — UI custom en móvil / in-app + nativo en escritorio
  */
 (function (global) {
   "use strict";
@@ -7,17 +7,31 @@
   var active = { audio: null, player: null, title: "", wantedPlay: false };
   var backgroundReady = false;
   var MOBILE_MQ = "(max-width: 767.98px)";
+  var IN_APP_RE = /Instagram|FBAN|FBAV|FB_IAB|Line\/|Twitter|LinkedInApp|Snapchat/i;
 
-  function isMobileLayout() {
-    return window.matchMedia(MOBILE_MQ).matches;
+  function isInAppBrowser() {
+    return IN_APP_RE.test(navigator.userAgent || "");
+  }
+
+  function markInAppRoot() {
+    if (isInAppBrowser()) {
+      document.documentElement.classList.add("in-app-browser");
+    }
+  }
+
+  function usesCustomUI() {
+    if (isInAppBrowser()) return true;
+    if (window.matchMedia && window.matchMedia(MOBILE_MQ).matches) return true;
+    if (navigator.maxTouchPoints > 0 && window.innerWidth < 1024) return true;
+    return false;
   }
 
   function syncPlayerLayout(player, audio) {
-    var mobile = isMobileLayout();
+    var custom = usesCustomUI();
     var shell = player.querySelector(".luzo-player__shell");
-    player.classList.toggle("luzo-player--mobile", mobile);
-    player.classList.toggle("luzo-player--desktop", !mobile);
-    if (mobile) {
+    player.classList.toggle("luzo-player--custom", custom);
+    player.classList.toggle("luzo-player--native", !custom);
+    if (custom) {
       audio.removeAttribute("controls");
       if (shell) shell.hidden = false;
     } else {
@@ -50,30 +64,20 @@
     );
   }
 
+  /** Siempre incluye shell; CSS/JS eligen custom vs nativo */
   function buildPlayerMarkup(file, title) {
-    if (!isMobileLayout()) {
-      return (
-        '<div class="luzo-player luzo-player--desktop" data-src="' +
-        file +
-        '" data-title="' +
-        title +
-        '">' +
-        '<audio class="luzo-player__audio" controls preload="metadata" playsinline src="' +
-        file +
-        '"></audio>' +
-        "</div>"
-      );
-    }
-
     return (
-      '<div class="luzo-player luzo-player--mobile" data-src="' +
+      '<div class="luzo-player" data-src="' +
       file +
       '" data-title="' +
       title +
       '">' +
-      '<audio class="luzo-player__audio" preload="metadata" playsinline></audio>' +
+      '<audio class="luzo-player__audio" preload="metadata" playsinline src="' +
+      file +
+      '"></audio>' +
       '<div class="luzo-player__shell glass">' +
-      '<button type="button" class="luzo-player__play" aria-label="Reproducir ' +
+      '<div class="luzo-player__top">' +
+      '<button type="button" class="luzo-player__play" aria-label="Play ' +
       title +
       '">' +
       iconPlay() +
@@ -81,8 +85,9 @@
       '<div class="luzo-player__viz" aria-hidden="true">' +
       "<span></span><span></span><span></span><span></span><span></span>" +
       "</div>" +
+      "</div>" +
       '<div class="luzo-player__main">' +
-      '<div class="luzo-player__progress" role="slider" tabindex="0" aria-label="Posición en la pista" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
+      '<div class="luzo-player__progress" role="slider" tabindex="0" aria-label="Track position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
       '<div class="luzo-player__progress-track">' +
       '<div class="luzo-player__progress-fill"></div>' +
       '<div class="luzo-player__progress-glow"></div>' +
@@ -160,6 +165,8 @@
   }
 
   function updateUI(player, audio) {
+    if (!player.classList.contains("luzo-player--custom")) return;
+
     var fill = player.querySelector(".luzo-player__progress-fill");
     var glow = player.querySelector(".luzo-player__progress-glow");
     var thumb = player.querySelector(".luzo-player__thumb");
@@ -184,6 +191,7 @@
     var track = player.querySelector(".luzo-player__progress-track");
     if (!track || !audio.duration) return;
     var rect = track.getBoundingClientRect();
+    if (!rect.width) return;
     var pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
     audio.currentTime = pct * audio.duration;
     updateUI(player, audio);
@@ -191,37 +199,59 @@
 
   function bindScrubber(player, audio) {
     var progress = player.querySelector(".luzo-player__progress");
-    var track = player.querySelector(".luzo-player__progress-track");
-    if (!progress || !track) return;
+    if (!progress) return;
 
     var dragging = false;
 
-    function onPointerDown(e) {
+    function onDown(clientX) {
       if (!audio.duration) return;
       dragging = true;
-      progress.setPointerCapture(e.pointerId);
-      seekFromPointer(player, audio, e.clientX);
+      seekFromPointer(player, audio, clientX);
     }
 
-    function onPointerMove(e) {
+    function onMove(clientX) {
       if (!dragging) return;
-      seekFromPointer(player, audio, e.clientX);
+      seekFromPointer(player, audio, clientX);
     }
 
-    function onPointerUp(e) {
-      if (!dragging) return;
+    function onUp() {
       dragging = false;
-      try {
-        progress.releasePointerCapture(e.pointerId);
-      } catch (err) {
-        /* ignore */
-      }
     }
 
-    progress.addEventListener("pointerdown", onPointerDown);
-    progress.addEventListener("pointermove", onPointerMove);
-    progress.addEventListener("pointerup", onPointerUp);
-    progress.addEventListener("pointercancel", onPointerUp);
+    progress.addEventListener("pointerdown", function (e) {
+      if (progress.setPointerCapture) progress.setPointerCapture(e.pointerId);
+      onDown(e.clientX);
+    });
+    progress.addEventListener("pointermove", function (e) {
+      onMove(e.clientX);
+    });
+    progress.addEventListener("pointerup", onUp);
+    progress.addEventListener("pointercancel", onUp);
+
+    progress.addEventListener(
+      "touchstart",
+      function (e) {
+        if (!e.touches.length) return;
+        onDown(e.touches[0].clientX);
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+    progress.addEventListener(
+      "touchmove",
+      function (e) {
+        if (!dragging || !e.touches.length) return;
+        onMove(e.touches[0].clientX);
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+    progress.addEventListener("touchend", onUp);
+    progress.addEventListener("touchcancel", onUp);
+
+    progress.addEventListener("click", function (e) {
+      onDown(e.clientX);
+    });
 
     progress.addEventListener("keydown", function (e) {
       if (!audio.duration) return;
@@ -248,6 +278,7 @@
 
     audio.setAttribute("playsinline", "");
     audio.setAttribute("webkit-playsinline", "");
+    audio.setAttribute("x-webkit-airplay", "allow");
     if (!audio.getAttribute("src")) audio.src = src;
 
     syncPlayerLayout(player, audio);
@@ -257,7 +288,7 @@
       setPlayingState(player, audio, title);
       active.wantedPlay = true;
       updateMediaSession(title, true);
-      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+      updateUI(player, audio);
     });
 
     audio.addEventListener("pause", function () {
@@ -265,25 +296,33 @@
         updateMediaSession(title, false);
         if (!document.hidden) active.wantedPlay = false;
       }
-      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+      updateUI(player, audio);
     });
 
     audio.addEventListener("ended", function () {
       active.wantedPlay = false;
       updateMediaSession(title, false);
-      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+      updateUI(player, audio);
     });
 
     audio.addEventListener("timeupdate", function () {
-      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+      updateUI(player, audio);
     });
 
     audio.addEventListener("loadedmetadata", function () {
-      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+      updateUI(player, audio);
     });
 
-    var shell = player.querySelector(".luzo-player__shell");
-    if (!shell || !btn) return;
+    audio.addEventListener("waiting", function () {
+      player.classList.add("is-loading");
+    });
+
+    audio.addEventListener("canplay", function () {
+      player.classList.remove("is-loading");
+      updateUI(player, audio);
+    });
+
+    if (!btn) return;
 
     btn.addEventListener("click", function () {
       if (audio.paused) {
@@ -298,14 +337,6 @@
     });
 
     bindScrubber(player, audio);
-
-    audio.addEventListener("waiting", function () {
-      player.classList.add("is-loading");
-    });
-
-    audio.addEventListener("canplay", function () {
-      player.classList.remove("is-loading");
-    });
   }
 
   function initBackgroundPlayback() {
@@ -327,16 +358,6 @@
         a.play().catch(function () {});
       }
     });
-
-    document.addEventListener(
-      "pagehide",
-      function () {
-        if (active.audio && active.wantedPlay && !active.audio.paused) {
-          active.audio.play().catch(function () {});
-        }
-      },
-      { capture: true }
-    );
   }
 
   function refreshLayouts() {
@@ -347,11 +368,16 @@
   }
 
   var resizeTimer;
+
   function init(root) {
+    markInAppRoot();
     var scope = root || document;
     scope.querySelectorAll(".luzo-player:not([data-bound])").forEach(function (player) {
       player.setAttribute("data-bound", "1");
       bindPlayer(player);
+      if (isInAppBrowser()) {
+        player.classList.add("visible");
+      }
     });
     setupMediaSessionActions();
     initBackgroundPlayback();
@@ -362,11 +388,19 @@
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(refreshLayouts, 150);
       });
+      window.addEventListener("orientationchange", function () {
+        setTimeout(refreshLayouts, 300);
+      });
     }
   }
+
+  markInAppRoot();
 
   global.LuzoPlayer = {
     build: buildPlayerMarkup,
     init: init,
+    refreshLayouts: refreshLayouts,
+    isInAppBrowser: isInAppBrowser,
+    usesCustomUI: usesCustomUI,
   };
 })(window);

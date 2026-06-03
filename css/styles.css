@@ -829,53 +829,79 @@ main { position: relative; z-index: 1; }
   margin-bottom: 1rem;
 }
 
-/* Reproductor: custom en móvil, nativo del navegador en escritorio */
+/* Reproductor: custom (móvil + Instagram/in-app) · nativo en escritorio */
 .luzo-player {
   margin-top: 0.25rem;
   width: 100%;
+  max-width: 100%;
 }
 
 .luzo-player__audio {
   display: none;
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  accent-color: var(--accent);
 }
 
 .luzo-player__shell {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
+  display: none;
   width: 100%;
+  max-width: 100%;
   padding: 0.875rem 1rem;
   border-radius: var(--radius-soft);
   border: 1px solid var(--glass-border);
+  box-sizing: border-box;
   transition: border-color 0.4s var(--ease), box-shadow 0.4s;
 }
 
-@media (min-width: 768px) {
-  .luzo-player__shell,
-  .luzo-player__shell[hidden],
-  .luzo-player--desktop .luzo-player__shell {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    overflow: hidden !important;
-  }
-
-  .luzo-player__audio,
-  .luzo-player--desktop .luzo-player__audio {
-    display: block !important;
-    width: 100%;
-    height: 48px;
-    border-radius: 8px;
-    accent-color: var(--accent);
-  }
+/* Modo custom: móvil, touch, Instagram, Facebook, etc. */
+.luzo-player--custom .luzo-player__shell,
+html.in-app-browser .luzo-player__shell {
+  display: block !important;
+  visibility: visible !important;
+  height: auto !important;
+  overflow: visible !important;
 }
 
-@media (max-width: 767.98px) {
-  .luzo-player__audio {
+.luzo-player--custom .luzo-player__audio,
+html.in-app-browser .luzo-player__audio {
+  display: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.luzo-player__top {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.luzo-player__top .luzo-player__play {
+  margin-right: 0.75rem;
+}
+
+html.in-app-browser .luzo-player__viz {
+  display: none !important;
+}
+
+/* Escritorio real (no in-app): reproductor nativo */
+@media (min-width: 768px) {
+  html:not(.in-app-browser) .luzo-player--native .luzo-player__shell {
     display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+  }
+
+  html:not(.in-app-browser) .luzo-player--native .luzo-player__audio {
+    display: block !important;
+    height: 48px !important;
+    pointer-events: auto !important;
   }
 }
 
@@ -924,15 +950,21 @@ main { position: relative; z-index: 1; }
 
 .luzo-player__viz {
   display: none;
+  -webkit-box-align: end;
   align-items: flex-end;
-  gap: 3px;
   height: 1.5rem;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 @media (min-width: 480px) {
-  .luzo-player__viz {
+  html:not(.in-app-browser) .luzo-player--custom .luzo-player__viz {
+    display: -webkit-box;
     display: flex;
+  }
+
+  html:not(.in-app-browser) .luzo-player--custom .luzo-player__viz span {
+    margin-left: 3px;
   }
 }
 
@@ -961,9 +993,11 @@ main { position: relative; z-index: 1; }
 }
 
 .luzo-player__main {
-  flex: 1 1 0;
-  min-width: 0;
+  display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .luzo-player__progress {

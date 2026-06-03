@@ -221,12 +221,17 @@
         "</div>";
 
       libraryList.appendChild(card);
+
+      if (win.LuzoPlayer && win.LuzoPlayer.isInAppBrowser()) {
+        card.classList.add("visible");
+      }
     });
 
     observeReveal(libraryList.querySelectorAll(".reveal"));
 
     if (win.LuzoPlayer) {
       win.LuzoPlayer.init(libraryList);
+      win.LuzoPlayer.refreshLayouts();
     }
   }
 
@@ -239,7 +244,7 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json?v=12")
+    fetch("audio/catalog.json?v=13")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
