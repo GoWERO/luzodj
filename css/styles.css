@@ -648,14 +648,18 @@ main { position: relative; z-index: 1; }
   opacity: 0.5;
 }
 
-/* Archivo de mezclas (oculto hasta abrir) */
-#boveda.archive-panel {
-  display: none;
-  scroll-margin-top: calc(var(--header-h) + 1rem);
+/* Archivo de mezclas — oculto hasta abrir (inicio / menú) */
+#boveda.archive-panel[hidden],
+#boveda.archive-panel:not(.is-open) {
+  display: none !important;
 }
 
 #boveda.archive-panel.is-open {
   display: block !important;
+}
+
+#boveda.archive-panel {
+  scroll-margin-top: calc(var(--header-h) + 1rem);
 }
 
 .section--vault {
@@ -682,14 +686,22 @@ main { position: relative; z-index: 1; }
   margin-bottom: 1.75rem;
 }
 
-.vault-stats__list {
+.vault-stats__summary {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.vault-stats__chips {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 0.625rem;
-  list-style: none;
-  margin: 0;
+  margin: 0.75rem 0 0;
   padding: 0;
+  list-style: none;
 }
 
 .vault-stat {

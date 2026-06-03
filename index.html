@@ -279,22 +279,6 @@
       </div>
     </section>
 
-    <!-- MIS MEZCLAS (archivo local; oculto hasta abrir) -->
-    <section class="section section--vault archive-panel" id="boveda" aria-labelledby="boveda-title" aria-hidden="true">
-      <div class="container">
-        <header class="section__header reveal">
-          <span class="section__label">Mis mezclas (para descargarlas)</span>
-          <h2 class="section__title" id="boveda-title">Escucha o descarga cada sesión</h2>
-          <p class="section__desc">
-            Sets y mezclas en alta fidelidad. Reproduce en el navegador o descarga cada sesión.
-          </p>
-        </header>
-        <div class="vault-stats reveal" id="vaultStats" aria-hidden="true"></div>
-        <div class="library-filters reveal" id="libraryFilters" role="tablist" aria-label="Filtrar mis mezclas para descargar"></div>
-        <div class="library-list" id="libraryList" role="tabpanel" aria-label="Mis mezclas para descargar, LUZO"></div>
-      </div>
-    </section>
-
     <!-- IDEAL PARA -->
     <section class="section section--audience" id="ideal-para">
       <div class="container">
@@ -461,6 +445,22 @@
       </div>
     </section>
 
+    <!-- MIS MEZCLAS — fuera del flujo; solo visible al abrir desde inicio o menú -->
+    <section class="section section--vault archive-panel" id="boveda" hidden aria-labelledby="boveda-title">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label">Mis mezclas (para descargarlas)</span>
+          <h2 class="section__title" id="boveda-title">Escucha o descarga cada sesión</h2>
+          <p class="section__desc">
+            Sets y mezclas en alta fidelidad. Reproduce en el navegador o descarga cada sesión.
+          </p>
+        </header>
+        <div class="vault-stats reveal" id="vaultStats" hidden></div>
+        <div class="library-filters reveal" id="libraryFilters" role="tablist" aria-label="Filtrar mis mezclas para descargar" hidden></div>
+        <div class="library-list" id="libraryList" role="tabpanel" aria-label="Mis mezclas para descargar, LUZO" hidden></div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
@@ -471,7 +471,7 @@
     </div>
   </footer>
 
-  <script src="js/luzo-player.js?v=10" defer></script>
-  <script src="js/main.js?v=10" defer></script>
+  <script src="js/luzo-player.js?v=11" defer></script>
+  <script src="js/main.js?v=11" defer></script>
 </body>
 </html>

@@ -205,7 +205,7 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json?v=10")
+    fetch("audio/catalog.json?v=11")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
@@ -218,18 +218,15 @@
             return i.type === "set";
           }).length;
           var mezclas = items.length - sets;
+          statsEl.removeAttribute("hidden");
           statsEl.innerHTML =
-            '<ul class="vault-stats__list" role="list">' +
-            '<li class="vault-stat">' +
+            '<p class="vault-stats__summary">' +
             items.length +
-            " sesiones</li>" +
-            '<li class="vault-stat">' +
+            " sesiones · " +
             sets +
-            " sets</li>" +
-            '<li class="vault-stat">' +
+            " sets · " +
             mezclas +
-            " mezclas</li>" +
-            "</ul>";
+            " mezclas</p>";
         }
         renderLibraryFilters(items);
         try {
@@ -260,17 +257,34 @@
     });
   }
 
+  function showArchiveContent() {
+    ["vaultStats", "libraryFilters", "libraryList"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.removeAttribute("hidden");
+    });
+  }
+
+  function closeArchivePanel() {
+    if (!archivePanel) return;
+    archivePanel.classList.remove("is-open");
+    archivePanel.setAttribute("hidden", "");
+    archivePanel.setAttribute("aria-hidden", "true");
+  }
+
   function openArchivePanel(scrollTo) {
     if (!archivePanel) return;
 
     archivePanel.classList.add("is-open");
     archivePanel.removeAttribute("hidden");
     archivePanel.setAttribute("aria-hidden", "false");
+    showArchiveContent();
     loadCatalog();
     showArchiveReveals();
 
     if (scrollTo) {
-      scrollToSection("#boveda", true);
+      window.requestAnimationFrame(function () {
+        scrollToSection("#boveda", true);
+      });
     }
 
     if (typeof observeReveal === "function") {
@@ -303,9 +317,12 @@
   function checkArchiveHash() {
     if (location.hash === "#boveda") {
       openArchivePanel(true);
+    } else {
+      closeArchivePanel();
     }
   }
 
+  closeArchivePanel();
   checkArchiveHash();
   window.addEventListener("hashchange", checkArchiveHash);
 
