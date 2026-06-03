@@ -155,7 +155,8 @@
       <ul class="nav__menu" id="navMenu">
         <li><a href="#sobre-mi" class="nav__link">Sobre mí</a></li>
         <li><a href="#filosofia" class="nav__link">Filosofía</a></li>
-        <li><a href="#como-sueno" class="nav__link">Cómo sueno</a></li>
+        <li><a href="#soundcloud" class="nav__link">SoundCloud</a></li>
+        <li><a href="#boveda" class="nav__link">Bóveda</a></li>
         <li><a href="#ideal-para" class="nav__link">Ideal para</a></li>
         <li><a href="#servicios" class="nav__link">Servicios</a></li>
         <li><a href="#proceso" class="nav__link">Proceso</a></li>
@@ -181,7 +182,8 @@
             Transformo espacios a través del sonido, creando atmósferas que conectan personas, conversaciones y experiencias.
           </p>
           <div class="hero__actions reveal">
-            <a href="#como-sueno" class="btn btn--primary">Escuchar mezcla</a>
+            <a href="#boveda" class="btn btn--primary">Bóveda sonora</a>
+            <a href="#soundcloud" class="btn btn--ghost">SoundCloud</a>
             <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--ghost" id="heroCta">Hablemos de tu espacio</a>
           </div>
         </div>
@@ -256,32 +258,38 @@
       </div>
     </section>
 
-    <!-- CÓMO SUENO -->
-    <section class="section section--mixes" id="como-sueno">
+    <!-- SOUNDCLOUD -->
+    <section class="section section--mixes" id="soundcloud">
       <div class="container">
         <header class="section__header reveal">
-          <span class="section__label">Cómo sueno</span>
-          <h2 class="section__title">Selecciones &amp; atmósferas</h2>
-          <p class="section__desc">Explora sesiones por categoría. Cada mezcla es una propuesta sonora distinta.</p>
+          <span class="section__label">SoundCloud</span>
+          <h2 class="section__title">Selecciones destacadas</h2>
+          <p class="section__desc">Muestras y sesiones en SoundCloud. Explora por categoría y conoce la dirección sonora de LUZO.</p>
         </header>
-        <div class="mix-filters reveal" id="mixFilters" role="tablist" aria-label="Filtrar mezclas"></div>
-        <div class="mix-grid" id="mixGrid" role="tabpanel" aria-label="Lista de mezclas"></div>
+        <div class="mix-filters reveal" id="mixFilters" role="tablist" aria-label="Filtrar selecciones SoundCloud"></div>
+        <div class="mix-grid" id="mixGrid" role="tabpanel" aria-label="Selecciones SoundCloud"></div>
         <p class="mix-grid__footer reveal">
           <a href="https://soundcloud.com/dmente24" id="linkSoundcloud" class="link-arrow" target="_blank" rel="noopener noreferrer">Perfil completo en SoundCloud →</a>
+          <span class="mix-grid__footer-sep" aria-hidden="true">·</span>
+          <a href="#boveda" class="link-arrow">Sets completos en la bóveda →</a>
         </p>
+      </div>
+    </section>
 
-        <div class="library reveal" id="biblioteca" aria-labelledby="biblioteca-title">
-          <div class="library__divider" aria-hidden="true"></div>
-          <header class="library__header">
-            <span class="section__label">Biblioteca completa</span>
-            <h3 class="library__title" id="biblioteca-title">Sets y mezclas · archivo LUZO</h3>
-            <p class="library__desc">
-              Sesiones completas alojadas en este sitio. Escucha o descarga cada set — la misma curaduría que llevo a rooftops, bares y venues.
-            </p>
-          </header>
-          <div class="library-filters" id="libraryFilters" role="tablist" aria-label="Filtrar biblioteca"></div>
-          <div class="library-list" id="libraryList" role="tabpanel" aria-label="Archivo de audio"></div>
-        </div>
+    <!-- BÓVEDA SONORA -->
+    <section class="section section--vault" id="boveda" aria-labelledby="boveda-title">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label">Bóveda sonora</span>
+          <h2 class="section__title" id="boveda-title">Todo lo que tengo grabado</h2>
+          <p class="section__desc">
+            Archivo completo en este sitio: escucha, descarga y explora cada set y mezcla en alta fidelidad.
+            <a href="#soundcloud" class="section__desc-link">Ver destacados en SoundCloud</a>.
+          </p>
+        </header>
+        <div class="vault-stats reveal" id="vaultStats" aria-hidden="true"></div>
+        <div class="library-filters reveal" id="libraryFilters" role="tablist" aria-label="Filtrar bóveda"></div>
+        <div class="library-list" id="libraryList" role="tabpanel" aria-label="Archivo de audio LUZO"></div>
       </div>
     </section>
 

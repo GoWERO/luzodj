@@ -124,7 +124,8 @@
     var types = ["TODOS", "set", "mezcla"];
     libraryFilters.innerHTML = "";
     types.forEach(function (type) {
-      var label = type === "TODOS" ? "Todos" : type === "set" ? "Sets" : "Mezclas";
+      var label =
+        type === "TODOS" ? "Todos" : type === "set" ? "Sets completos" : "Mezclas";
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "mix-filter" + (libraryActive === type ? " is-active" : "");
@@ -148,17 +149,22 @@
     items.forEach(function (item) {
       if (libraryActive !== "TODOS" && item.type !== libraryActive) return;
 
-      var badge = item.type === "set" ? "Set completo" : "Mezcla";
+      var typeLabel = item.type === "set" ? "Set completo" : "Mezcla";
+      var genreLabel = item.genre || typeLabel;
       var card = document.createElement("article");
       card.className = "library-card glass reveal";
       card.setAttribute("data-type", item.type);
 
       card.innerHTML =
         '<div class="library-card__meta">' +
-        '<span class="library-card__badge">' + badge + "</span>" +
+        '<span class="library-card__badge">' + escapeHtml(genreLabel) + "</span>" +
+        '<span class="library-card__type">' + typeLabel + "</span>" +
         '<span class="library-card__size">' + item.sizeMB + " MB</span>" +
         "</div>" +
         "<h4 class=\"library-card__title\">" + escapeHtml(item.title) + "</h4>" +
+        (item.subtitle
+          ? '<p class="library-card__subtitle">' + escapeHtml(item.subtitle) + "</p>"
+          : "") +
         '<audio controls preload="none" src="' + escapeHtml(item.file) + '">' +
         "Tu navegador no soporta reproducción de audio." +
         "</audio>" +
@@ -190,6 +196,23 @@
         return r.json();
       })
       .then(function (items) {
+        var statsEl = document.getElementById("vaultStats");
+        if (statsEl) {
+          var sets = items.filter(function (i) {
+            return i.type === "set";
+          }).length;
+          var mezclas = items.length - sets;
+          statsEl.innerHTML =
+            '<span class="vault-stat">' +
+            items.length +
+            " sesiones</span>" +
+            '<span class="vault-stat">' +
+            sets +
+            " sets</span>" +
+            '<span class="vault-stat">' +
+            mezclas +
+            " mezclas</span>";
+        }
         renderLibraryFilters(items);
         renderLibrary(items);
       })
