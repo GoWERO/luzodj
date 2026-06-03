@@ -205,7 +205,7 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json?v=7")
+    fetch("audio/catalog.json?v=8")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
@@ -268,11 +268,7 @@
     showArchiveReveals();
 
     if (scrollTo) {
-      window.requestAnimationFrame(function () {
-        window.requestAnimationFrame(function () {
-          archivePanel.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      });
+      scrollToSection("#boveda", true);
     }
 
     if (typeof observeReveal === "function") {
@@ -317,6 +313,39 @@
 
   /* ── Header scroll ── */
   var header = document.getElementById("header");
+  var SCROLL_GAP = 20;
+
+  function getHeaderOffset() {
+    return (header ? header.offsetHeight : 68) + SCROLL_GAP;
+  }
+
+  function scrollToSection(id, smooth) {
+    var target = document.querySelector(id);
+    if (!target) return;
+    var top =
+      target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: smooth ? "smooth" : "auto",
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    var href = link.getAttribute("href");
+    if (!href || href === "#" || href === "#boveda" || href === "#inicio") return;
+
+    link.addEventListener("click", function (e) {
+      if (!document.querySelector(href)) return;
+      e.preventDefault();
+      closeMobileNav();
+      scrollToSection(href, true);
+      if (history.pushState) {
+        history.pushState(null, "", href);
+      } else {
+        location.hash = href.slice(1);
+      }
+    });
+  });
 
   function onScroll() {
     if (header) header.classList.toggle("header--scrolled", window.scrollY > 32);

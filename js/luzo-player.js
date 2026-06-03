@@ -6,6 +6,22 @@
 
   var active = { audio: null, player: null, title: "", wantedPlay: false };
   var backgroundReady = false;
+  var MOBILE_MQ = "(max-width: 767.98px)";
+
+  function isMobileLayout() {
+    return window.matchMedia(MOBILE_MQ).matches;
+  }
+
+  function syncPlayerLayout(player, audio) {
+    var mobile = isMobileLayout();
+    player.classList.toggle("luzo-player--mobile", mobile);
+    player.classList.toggle("luzo-player--desktop", !mobile);
+    if (mobile) {
+      audio.removeAttribute("controls");
+    } else {
+      audio.setAttribute("controls", "");
+    }
+  }
 
   function formatTime(seconds) {
     if (!isFinite(seconds) || seconds < 0) return "0:00";
@@ -211,12 +227,45 @@
     var src = player.getAttribute("data-src");
     var title = player.getAttribute("data-title") || "LUZO";
 
-    if (!audio || !src || !btn) return;
+    if (!audio || !src) return;
 
-    audio.removeAttribute("controls");
     audio.setAttribute("playsinline", "");
     audio.setAttribute("webkit-playsinline", "");
     if (!audio.getAttribute("src")) audio.src = src;
+
+    syncPlayerLayout(player, audio);
+
+    audio.addEventListener("play", function () {
+      pauseOthers(audio);
+      setPlayingState(player, audio, title);
+      active.wantedPlay = true;
+      updateMediaSession(title, true);
+      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+    });
+
+    audio.addEventListener("pause", function () {
+      if (active.audio === audio) {
+        updateMediaSession(title, false);
+        if (!document.hidden) active.wantedPlay = false;
+      }
+      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+    });
+
+    audio.addEventListener("ended", function () {
+      active.wantedPlay = false;
+      updateMediaSession(title, false);
+      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+    });
+
+    audio.addEventListener("timeupdate", function () {
+      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+    });
+
+    audio.addEventListener("loadedmetadata", function () {
+      if (player.classList.contains("luzo-player--mobile")) updateUI(player, audio);
+    });
+
+    if (!player.classList.contains("luzo-player--mobile") || !btn) return;
 
     btn.addEventListener("click", function () {
       if (audio.paused) {
@@ -231,36 +280,6 @@
     });
 
     bindScrubber(player, audio);
-
-    audio.addEventListener("play", function () {
-      pauseOthers(audio);
-      setPlayingState(player, audio, title);
-      active.wantedPlay = true;
-      updateMediaSession(title, true);
-      updateUI(player, audio);
-    });
-
-    audio.addEventListener("pause", function () {
-      if (active.audio === audio) {
-        updateMediaSession(title, false);
-        if (!document.hidden) active.wantedPlay = false;
-      }
-      updateUI(player, audio);
-    });
-
-    audio.addEventListener("ended", function () {
-      active.wantedPlay = false;
-      updateMediaSession(title, false);
-      updateUI(player, audio);
-    });
-
-    audio.addEventListener("timeupdate", function () {
-      updateUI(player, audio);
-    });
-
-    audio.addEventListener("loadedmetadata", function () {
-      updateUI(player, audio);
-    });
 
     audio.addEventListener("waiting", function () {
       player.classList.add("is-loading");
@@ -302,6 +321,14 @@
     );
   }
 
+  function refreshLayouts() {
+    document.querySelectorAll(".luzo-player[data-bound]").forEach(function (player) {
+      var audio = player.querySelector(".luzo-player__audio");
+      if (audio) syncPlayerLayout(player, audio);
+    });
+  }
+
+  var resizeTimer;
   function init(root) {
     var scope = root || document;
     scope.querySelectorAll(".luzo-player:not([data-bound])").forEach(function (player) {
@@ -310,6 +337,14 @@
     });
     setupMediaSessionActions();
     initBackgroundPlayback();
+
+    if (!init.resizeBound) {
+      init.resizeBound = true;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(refreshLayouts, 150);
+      });
+    }
   }
 
   global.LuzoPlayer = {
