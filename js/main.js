@@ -189,7 +189,13 @@
     observeReveal(libraryList.querySelectorAll(".reveal"));
   }
 
-  if (libraryList) {
+  var archivePanel = document.getElementById("boveda");
+  var catalogLoaded = false;
+
+  function loadCatalog() {
+    if (!libraryList || catalogLoaded) return;
+    catalogLoaded = true;
+
     fetch("audio/catalog.json")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
@@ -198,6 +204,7 @@
       .then(function (items) {
         var statsEl = document.getElementById("vaultStats");
         if (statsEl) {
+          statsEl.removeAttribute("aria-hidden");
           var sets = items.filter(function (i) {
             return i.type === "set";
           }).length;
@@ -220,6 +227,40 @@
         libraryList.innerHTML =
           '<p class="library__empty">Biblioteca en actualización. Vuelve pronto.</p>';
       });
+  }
+
+  function openArchivePanel(scrollTo) {
+    if (!archivePanel) return;
+
+    archivePanel.hidden = false;
+    archivePanel.classList.add("is-open");
+    loadCatalog();
+
+    if (scrollTo) {
+      requestAnimationFrame(function () {
+        archivePanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    observeReveal(archivePanel.querySelectorAll(".reveal:not(.visible)"));
+  }
+
+  function handleArchiveLinkClick(e) {
+    e.preventDefault();
+    openArchivePanel(true);
+    if (history.replaceState) {
+      history.replaceState(null, "", "#boveda");
+    } else {
+      location.hash = "boveda";
+    }
+  }
+
+  document.querySelectorAll('a[href="#boveda"]').forEach(function (link) {
+    link.addEventListener("click", handleArchiveLinkClick);
+  });
+
+  if (location.hash === "#boveda") {
+    openArchivePanel(true);
   }
 
   /* ── Footer year ── */
