@@ -278,6 +278,7 @@ button:focus-visible,
   display: flex;
   align-items: center;
   padding-block: calc(var(--header-h) + 2rem) 3.5rem;
+  scroll-margin-top: calc(var(--header-h) + 0.5rem);
 }
 
 .hero__grid {
@@ -440,10 +441,6 @@ main { position: relative; z-index: 1; }
 .section {
   padding-block: var(--section-gap);
   scroll-margin-top: calc(var(--header-h) + 1.25rem);
-}
-
-.hero {
-  scroll-margin-top: calc(var(--header-h) + 0.5rem);
 }
 
 .section__header { margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
