@@ -205,7 +205,7 @@
     if (!libraryList || catalogLoaded) return;
     catalogLoaded = true;
 
-    fetch("audio/catalog.json?v=9")
+    fetch("audio/catalog.json?v=10")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
@@ -219,15 +219,17 @@
           }).length;
           var mezclas = items.length - sets;
           statsEl.innerHTML =
-            '<span class="vault-stat">' +
+            '<ul class="vault-stats__list" role="list">' +
+            '<li class="vault-stat">' +
             items.length +
-            " sesiones</span>" +
-            '<span class="vault-stat">' +
+            " sesiones</li>" +
+            '<li class="vault-stat">' +
             sets +
-            " sets</span>" +
-            '<span class="vault-stat">' +
+            " sets</li>" +
+            '<li class="vault-stat">' +
             mezclas +
-            " mezclas</span>";
+            " mezclas</li>" +
+            "</ul>";
         }
         renderLibraryFilters(items);
         try {
