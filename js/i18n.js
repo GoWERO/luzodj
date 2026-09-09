@@ -14,6 +14,7 @@
         "LUZO es DJ y selector de atmósferas sonoras en México. House, deep house, organic house y curaduría musical para rooftops, bares, restaurantes y venues con identidad.",
       "skip": "Saltar al contenido",
       "lang.label": "Idioma del sitio",
+      "nav.latest": "Lo más nuevo",
       "nav.about": "Sobre mí",
       "nav.philosophy": "Filosofía",
       "nav.soundcloud": "SoundCloud",
@@ -31,6 +32,7 @@
         "House, deep house, organic house y sonidos electrónicos para espacios con identidad.",
       "hero.pitch":
         "Transformo espacios a través del sonido, creando atmósferas que conectan personas, conversaciones y experiencias.",
+      "hero.latest": "Escuchar lo más nuevo",
       "hero.archive": "Mis mezclas (para descargarlas)",
       "hero.cta": "Hablemos de tu espacio",
       "hero.imgAlt": "LUZO — DJ y selector de atmósferas sonoras en sesión",
@@ -63,6 +65,14 @@
       "philosophy.p2":
         "La música correcta puede transformar una conversación, elevar una experiencia gastronómica o convertir una noche ordinaria en un recuerdo.",
       "philosophy.closing": "Mi trabajo consiste en encontrar esa banda sonora.",
+      "latest.label": "Lo más nuevo",
+      "latest.title": "Entra y dale play",
+      "latest.desc":
+        "Las mezclas más recientes, directo en la plataforma. Sin salir, sin esperar.",
+      "latest.drop": "Nuevo drop",
+      "latest.hourSet": "Set de 1 hora",
+      "latest.empty": "Pronto llega una sesión nueva.",
+      "latest.more": "También reciente",
       "soundcloud.label": "SoundCloud",
       "soundcloud.title": "Selecciones destacadas",
       "soundcloud.desc":
@@ -149,6 +159,7 @@
         "LUZO is a DJ and sonic atmosphere selector in Mexico. House, deep house, organic house and musical curation for rooftops, bars, restaurants and venues with character.",
       "skip": "Skip to content",
       "lang.label": "Site language",
+      "nav.latest": "Latest",
       "nav.about": "About",
       "nav.philosophy": "Philosophy",
       "nav.soundcloud": "SoundCloud",
@@ -166,6 +177,7 @@
         "House, deep house, organic house and electronic sounds for spaces with character.",
       "hero.pitch":
         "I transform spaces through sound, creating atmospheres that connect people, conversations and experiences.",
+      "hero.latest": "Play the latest mix",
       "hero.archive": "My mixes (download)",
       "hero.cta": "Let's talk about your space",
       "hero.imgAlt": "LUZO — DJ and sonic atmosphere selector performing",
@@ -197,6 +209,13 @@
       "philosophy.p2":
         "The right music can transform a conversation, elevate a dining experience or turn an ordinary night into a memory.",
       "philosophy.closing": "My job is to find that soundtrack.",
+      "latest.label": "Latest",
+      "latest.title": "Press play",
+      "latest.desc": "The newest mixes, streamed right here. No extra clicks.",
+      "latest.drop": "New drop",
+      "latest.hourSet": "1-hour set",
+      "latest.empty": "A new session is on the way.",
+      "latest.more": "Also recent",
       "soundcloud.label": "SoundCloud",
       "soundcloud.title": "Featured selections",
       "soundcloud.desc":

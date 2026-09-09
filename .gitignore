@@ -18,6 +18,7 @@ assets/images/hero.original.jpg
 # Carpetas fuente en la raíz (copiar con scripts/sync-audio.mjs → audio/)
 /Mezclas/
 /Sets/
+/Nuevo/
 
 # audio/ SÍ se despliega — ~300 MB, no ideal para Git móvil lento
 # Si prefieres repo liviano: descomenta la línea siguiente y despliega con `vercel deploy` local

@@ -49,7 +49,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700&display=optional" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=13">
+  <link rel="stylesheet" href="css/styles.css?v=14">
   <style>
     html.fonts-waiting .hero__title {
       visibility: hidden;
@@ -169,14 +169,15 @@
         <span></span><span></span>
       </button>
       <ul class="nav__menu" id="navMenu">
+        <li><a href="#nuevo" class="nav__link nav__link--cta" data-i18n="nav.latest">Lo más nuevo</a></li>
         <li><a href="#sobre-mi" class="nav__link" data-i18n="nav.about">Sobre mí</a></li>
-        <li><a href="#filosofia" class="nav__link" data-i18n="nav.philosophy">Filosofía</a></li>
+        <li class="nav__item--optional"><a href="#filosofia" class="nav__link" data-i18n="nav.philosophy">Filosofía</a></li>
         <li><a href="#soundcloud" class="nav__link" data-i18n="nav.soundcloud">SoundCloud</a></li>
         <li><a href="#boveda" class="nav__link nav__link--archive" data-open-archive data-i18n="nav.archive" data-i18n-title="nav.archiveTitle">Mis mezclas (descargar)</a></li>
-        <li><a href="#ideal-para" class="nav__link" data-i18n="nav.audience">Ideal para</a></li>
+        <li class="nav__item--optional"><a href="#ideal-para" class="nav__link" data-i18n="nav.audience">Ideal para</a></li>
         <li><a href="#servicios" class="nav__link" data-i18n="nav.services">Servicios</a></li>
-        <li><a href="#proceso" class="nav__link" data-i18n="nav.process">Proceso</a></li>
-        <li><a href="#experiencia" class="nav__link" data-i18n="nav.experience">Experiencia</a></li>
+        <li class="nav__item--optional"><a href="#proceso" class="nav__link" data-i18n="nav.process">Proceso</a></li>
+        <li class="nav__item--optional"><a href="#experiencia" class="nav__link" data-i18n="nav.experience">Experiencia</a></li>
         <li><a href="#contacto" class="nav__link nav__link--cta" data-i18n="nav.contact">Contacto</a></li>
       </ul>
     </nav>
@@ -198,8 +199,8 @@
             Transformo espacios a través del sonido, creando atmósferas que conectan personas, conversaciones y experiencias.
           </p>
           <div class="hero__actions reveal">
-            <a href="#boveda" class="btn btn--primary" data-open-archive data-i18n="hero.archive">Mis mezclas (para descargarlas)</a>
-            <a href="#soundcloud" class="btn btn--ghost" data-i18n="nav.soundcloud">SoundCloud</a>
+            <a href="#nuevo" class="btn btn--primary" data-i18n="hero.latest">Escuchar lo más nuevo</a>
+            <a href="#boveda" class="btn btn--ghost" data-open-archive data-i18n="hero.archive">Mis mezclas (para descargarlas)</a>
             <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--ghost" id="heroCta" data-i18n="hero.cta">Hablemos de tu espacio</a>
           </div>
         </div>
@@ -222,6 +223,20 @@
             <div class="hero__aura" aria-hidden="true"></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- LO MÁS NUEVO -->
+    <section class="section section--latest" id="nuevo" aria-labelledby="nuevo-title">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label" data-i18n="latest.label">Lo más nuevo</span>
+          <h2 class="section__title" id="nuevo-title" data-i18n="latest.title">Entra y dale play</h2>
+          <p class="section__desc" data-i18n="latest.desc">
+            Las mezclas más recientes, directo en la plataforma. Sin salir, sin esperar.
+          </p>
+        </header>
+        <div id="latestStage" class="latest-stage-wrap" aria-live="polite"></div>
       </div>
     </section>
 
@@ -483,8 +498,8 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=13" defer></script>
-  <script src="js/luzo-player.js?v=13" defer></script>
-  <script src="js/main.js?v=13" defer></script>
+  <script src="js/i18n.js?v=14" defer></script>
+  <script src="js/luzo-player.js?v=14" defer></script>
+  <script src="js/main.js?v=14" defer></script>
 </body>
 </html>

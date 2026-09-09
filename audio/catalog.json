@@ -1,7 +1,21 @@
 [
   {
+    "id": "nuevo-primera-hora.m4a",
+    "type": "set",
+    "latest": true,
+    "date": "2026-09-09",
+    "title": "Primera hora",
+    "subtitle": "Set completo · 61 min",
+    "genre": "Live set",
+    "file": "audio/nuevo/primera-hora.m4a",
+    "sizeMB": 74.1,
+    "original": "primera-hora.m4a"
+  },
+  {
     "id": "sets-38-min.m4a",
     "type": "set",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Mixup House · Tech",
     "subtitle": "Set completo · ~38 min",
     "genre": "House / Tech",
@@ -12,6 +26,8 @@
   {
     "id": "sets-31-min.m4a",
     "type": "set",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Intro R&B × Electrónica",
     "subtitle": "Set completo · ~31 min",
     "genre": "R&B / Electrónica",
@@ -22,6 +38,8 @@
   {
     "id": "sets-27-19-min.m4a",
     "type": "set",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Groove & Flow",
     "subtitle": "Set completo · ~27 min",
     "genre": "House / Groove",
@@ -32,6 +50,8 @@
   {
     "id": "sets-25-39-min.m4a",
     "type": "set",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Warm Opening",
     "subtitle": "Set completo · ~25 min",
     "genre": "House",
@@ -42,6 +62,8 @@
   {
     "id": "mezclas-11-15-min-house-space-rythm-vocales.mp3",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "House · Space & Rhythm",
     "subtitle": "Con vocales · ~11 min",
     "genre": "House",
@@ -52,6 +74,8 @@
   {
     "id": "mezclas-10-39-min-expermiental-afro-house-and-techouse.mp3",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Experimental Afro House",
     "subtitle": "Afro + Techouse · ~10 min",
     "genre": "Afro House",
@@ -62,6 +86,8 @@
   {
     "id": "mezclas-7-42-min-psytrance-mix.mp3",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Psytrance Session",
     "subtitle": "Exploración · ~7 min",
     "genre": "Psytrance",
@@ -72,6 +98,8 @@
   {
     "id": "mezclas-6-47-min-tech-house-should-coulda.mp3",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Tech House · Should Coulda",
     "subtitle": "Groove nocturno · ~6 min",
     "genre": "Tech House",
@@ -82,6 +110,8 @@
   {
     "id": "mezclas-4-52-min-house-heavy-rotation-house-music-baby-uto-karem-body-move.m4a",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Heavy Rotation House",
     "subtitle": "Uto Karem · Body Move · ~5 min",
     "genre": "House",
@@ -92,6 +122,8 @@
   {
     "id": "mezclas-8-12-min-melodic-house-gonna-make-you-believe-in-love.m4a",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Melodic House · Believe in Love",
     "subtitle": "Emotional groove · ~8 min",
     "genre": "Melodic House",
@@ -102,6 +134,8 @@
   {
     "id": "mezclas-6-22-min-afro-house-melodic-key-falling.m4a",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Afro House Melodic",
     "subtitle": "Key + Falling · ~6 min",
     "genre": "Afro House",
@@ -112,6 +146,8 @@
   {
     "id": "mezclas-2-07-min-afro-house-when-the-sun.mp3",
     "type": "mezcla",
+    "latest": false,
+    "date": "2026-06-02",
     "title": "Afro House · When the Sun",
     "subtitle": "Atmósfera cálida · ~2 min",
     "genre": "Afro House",

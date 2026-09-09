@@ -235,41 +235,192 @@
     }
   }
 
+  function formatSessionDate(iso) {
+    if (!iso) return "";
+    var parts = String(iso).split("-");
+    if (parts.length < 3) return iso;
+    var monthsEs = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+    var monthsEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var lang = win.LuzoI18n ? win.LuzoI18n.getLang() : "es";
+    var m = Number(parts[1]) - 1;
+    var d = String(Number(parts[2]));
+    if (m < 0 || m > 11) return iso;
+    if (lang === "en") return monthsEn[m] + " " + d + ", " + parts[0];
+    return d + " " + monthsEs[m] + " " + parts[0];
+  }
+
+  function downloadMarkup(item) {
+    return (
+      '<div class="library-card__actions">' +
+      '<a class="btn btn--download" href="' +
+      escapeHtml(item.file) +
+      '" download="' +
+      escapeAttr("LUZO - " + (item.original || item.file.split("/").pop())) +
+      '" aria-label="' +
+      escapeAttr(t("library.downloadAria") + " " + item.title) +
+      '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="18" height="18" aria-hidden="true">' +
+      '<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>' +
+      "</svg>" +
+      "<span>" +
+      escapeHtml(t("library.download")) +
+      "</span>" +
+      "</a>" +
+      "</div>"
+    );
+  }
+
+  function playerMarkup(item) {
+    return win.LuzoPlayer
+      ? win.LuzoPlayer.build(escapeAttr(item.file), escapeAttr(item.title))
+      : '<audio controls preload="metadata" playsinline src="' +
+        escapeHtml(item.file) +
+        '"></audio>';
+  }
+
+  function renderLatest(items) {
+    var wrap = document.getElementById("latestStage");
+    if (!wrap) return;
+
+    var latest = (items || []).filter(function (i) {
+      return i.latest;
+    });
+    latest.sort(function (a, b) {
+      return String(b.date || "").localeCompare(String(a.date || ""));
+    });
+
+    if (!latest.length) {
+      wrap.innerHTML =
+        '<p class="library__empty">' + escapeHtml(t("latest.empty")) + "</p>";
+      return;
+    }
+
+    var featured = latest[0];
+    var rest = latest.slice(1);
+    var dateLabel = formatSessionDate(featured.date);
+    var hourish = /61\s*min|60\s*min|1\s*hora|1-hour|1 hour/i.test(
+      String(featured.title || "") + " " + String(featured.subtitle || "")
+    );
+    var html =
+      '<article class="latest-stage glass reveal visible">' +
+      '<p class="latest-stage__kicker">' +
+      '<span class="latest-stage__pulse" aria-hidden="true"></span>' +
+      escapeHtml(t("latest.drop")) +
+      "</p>" +
+      '<h3 class="latest-stage__title">' +
+      escapeHtml(featured.title) +
+      "</h3>" +
+      (featured.subtitle
+        ? '<p class="latest-stage__subtitle">' + escapeHtml(featured.subtitle) + "</p>"
+        : "") +
+      '<div class="latest-stage__chips">' +
+      (hourish
+        ? '<span class="latest-chip latest-chip--accent">' +
+          escapeHtml(t("latest.hourSet")) +
+          "</span>"
+        : '<span class="latest-chip latest-chip--accent">' +
+          escapeHtml(t("latest.drop")) +
+          "</span>") +
+      (featured.genre
+        ? '<span class="latest-chip">' + escapeHtml(featured.genre) + "</span>"
+        : "") +
+      (dateLabel ? '<span class="latest-chip">' + escapeHtml(dateLabel) + "</span>" : "") +
+      '<span class="latest-chip">' +
+      escapeHtml(String(featured.sizeMB)) +
+      " MB</span>" +
+      "</div>" +
+      playerMarkup(featured) +
+      downloadMarkup(featured) +
+      "</article>";
+
+    if (rest.length) {
+      html += '<p class="latest-more">' + escapeHtml(t("latest.more")) + "</p>";
+      html += '<div class="latest-list">';
+      rest.forEach(function (item) {
+        html +=
+          '<article class="library-card glass reveal visible">' +
+          '<div class="library-card__meta">' +
+          '<span class="library-card__badge">' +
+          escapeHtml(item.genre || t("latest.drop")) +
+          "</span>" +
+          (item.date
+            ? '<span class="library-card__size">' +
+              escapeHtml(formatSessionDate(item.date)) +
+              "</span>"
+            : "") +
+          "</div>" +
+          '<h4 class="library-card__title">' +
+          escapeHtml(item.title) +
+          "</h4>" +
+          (item.subtitle
+            ? '<p class="library-card__subtitle">' + escapeHtml(item.subtitle) + "</p>"
+            : "") +
+          playerMarkup(item) +
+          downloadMarkup(item) +
+          "</article>";
+      });
+      html += "</div>";
+    }
+
+    wrap.innerHTML = html;
+
+    if (win.LuzoPlayer) {
+      win.LuzoPlayer.init(wrap);
+      win.LuzoPlayer.refreshLayouts();
+    }
+  }
+
   var archivePanel = document.getElementById("boveda");
-  var catalogLoaded = false;
+  var catalogFetchStarted = false;
   var navToggle = document.getElementById("navToggle");
   var navMenu = document.getElementById("navMenu");
 
-  function loadCatalog() {
-    if (!libraryList || catalogLoaded) return;
-    catalogLoaded = true;
+  function renderArchiveFromCatalog() {
+    if (!catalogItems || !libraryList) return;
+    if (!archivePanel || !archivePanel.classList.contains("is-open")) return;
 
-    fetch("audio/catalog.json?v=13")
+    var statsEl = document.getElementById("vaultStats");
+    if (statsEl) {
+      statsEl.removeAttribute("aria-hidden");
+      statsEl.removeAttribute("hidden");
+      renderVaultStats(catalogItems);
+    }
+    renderLibraryFilters(catalogItems);
+    try {
+      renderLibrary(catalogItems);
+    } catch (err) {
+      console.error("LUZO biblioteca:", err);
+      libraryList.innerHTML =
+        '<p class="library__empty">' + escapeHtml(t("library.empty")) + "</p>";
+    }
+  }
+
+  function loadCatalog() {
+    if (catalogItems) {
+      renderLatest(catalogItems);
+      renderArchiveFromCatalog();
+      return;
+    }
+    if (catalogFetchStarted) return;
+    catalogFetchStarted = true;
+
+    fetch("audio/catalog.json?v=14")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
       })
       .then(function (items) {
         catalogItems = items;
-        var statsEl = document.getElementById("vaultStats");
-        if (statsEl) {
-          statsEl.removeAttribute("aria-hidden");
-          statsEl.removeAttribute("hidden");
-          renderVaultStats(items);
-        }
-        renderLibraryFilters(items);
-        try {
-          renderLibrary(items);
-        } catch (err) {
-          console.error("LUZO biblioteca:", err);
-          libraryList.innerHTML =
-            '<p class="library__empty">' + escapeHtml(t("library.empty")) + "</p>";
-        }
+        renderLatest(items);
+        renderArchiveFromCatalog();
       })
       .catch(function (err) {
         console.error("LUZO catalog:", err);
-        libraryList.innerHTML =
-          '<p class="library__empty">' + escapeHtml(t("library.updating")) + "</p>";
+        renderLatest([]);
+        if (libraryList) {
+          libraryList.innerHTML =
+            '<p class="library__empty">' + escapeHtml(t("library.updating")) + "</p>";
+        }
       });
   }
 
@@ -354,6 +505,7 @@
   closeArchivePanel();
   checkArchiveHash();
   window.addEventListener("hashchange", checkArchiveHash);
+  loadCatalog();
 
   /* ── Footer year ── */
   var yearEl = document.getElementById("year");
@@ -394,6 +546,12 @@
       }
     });
   });
+
+  if (location.hash === "#nuevo") {
+    window.requestAnimationFrame(function () {
+      scrollToSection("#nuevo", false);
+    });
+  }
 
   function onScroll() {
     if (header) header.classList.toggle("header--scrolled", window.scrollY > 32);
@@ -456,6 +614,7 @@
     filterMixes();
     renderMixes();
     if (catalogItems) {
+      renderLatest(catalogItems);
       renderVaultStats(catalogItems);
       renderLibraryFilters(catalogItems);
       renderLibrary(catalogItems);
