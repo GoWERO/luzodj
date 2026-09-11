@@ -75,7 +75,7 @@
       "latest.label": "Lo más nuevo",
       "latest.title": "Entra y dale play",
       "latest.desc":
-        "Las mezclas más recientes, directo en la plataforma. Sin salir, sin esperar.",
+        "Tu mix más reciente abre esta sección: directo en la plataforma, sin salir y sin esperar.",
       "latest.drop": "Nuevo drop",
       "latest.hourSet": "Set de 1 hora",
       "latest.empty": "Pronto llega una sesión nueva.",
@@ -87,6 +87,9 @@
       "soundcloud.filtersAria": "Filtrar selecciones SoundCloud",
       "soundcloud.gridAria": "Selecciones SoundCloud",
       "soundcloud.profile": "Perfil completo en SoundCloud →",
+      "soundcloud.linksAria": "Canales musicales de LUZO",
+      "soundcloud.primary": "SoundCloud principal",
+      "soundcloud.alt": "SoundCloud alternativo",
       "archive.label": "Mis mezclas (para descargarlas)",
       "archive.title": "Escucha o descarga cada sesión",
       "archive.desc":
@@ -224,7 +227,7 @@
       "philosophy.closing": "My job is to find that soundtrack.",
       "latest.label": "Latest",
       "latest.title": "Press play",
-      "latest.desc": "The newest mixes, streamed right here. No extra clicks.",
+      "latest.desc": "Your latest mix opens this section, streamed right here with no extra clicks.",
       "latest.drop": "New drop",
       "latest.hourSet": "1-hour set",
       "latest.empty": "A new session is on the way.",
@@ -236,6 +239,9 @@
       "soundcloud.filtersAria": "Filter SoundCloud selections",
       "soundcloud.gridAria": "SoundCloud selections",
       "soundcloud.profile": "Full profile on SoundCloud →",
+      "soundcloud.linksAria": "LUZO music channels",
+      "soundcloud.primary": "Main SoundCloud",
+      "soundcloud.alt": "Alternative SoundCloud",
       "archive.label": "My mixes (download)",
       "archive.title": "Listen or download each session",
       "archive.desc":

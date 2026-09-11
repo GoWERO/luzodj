@@ -37,6 +37,10 @@
 
   setHref("linkInstagram", config.instagram);
   setHref("linkSoundcloud", config.soundcloud);
+  setHref("linkMixcloud", config.mixcloud);
+  setHref("contactMixcloud", config.mixcloud);
+  setHref("linkAltSoundcloud", config.altSoundcloud);
+  setHref("contactAltSoundcloud", config.altSoundcloud);
   if (win.LuzoI18n) {
     setHref("linkWhatsapp", win.LuzoI18n.whatsappUrl());
     setHref("heroCta", win.LuzoI18n.whatsappUrl());
@@ -403,7 +407,7 @@
     if (catalogFetchStarted) return;
     catalogFetchStarted = true;
 
-    fetch("audio/catalog.json?v=14")
+    fetch("audio/catalog.json?v=15")
       .then(function (r) {
         if (!r.ok) throw new Error("catalog");
         return r.json();
