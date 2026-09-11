@@ -79,7 +79,6 @@
     "description": "DJ y selector de atmósferas sonoras especializado en house, deep house y organic house para espacios con identidad.",
     "genre": ["House", "Deep House", "Organic House", "Electronic"],
     "url": "https://luzodj.com/",
-    "email": "hola@luzodj.com",
     "sameAs": [
       "https://www.instagram.com/andres._zm/",
       "https://soundcloud.com/dmente24"
@@ -99,7 +98,6 @@
       instagram: "https://www.instagram.com/andres._zm/",
       whatsapp: "https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio.",
       soundcloud: "https://soundcloud.com/dmente24",
-      email: "mailto:hola@luzodj.com",
       heroImage: "assets/images/hero.jpg",
       mixes: [
         {
@@ -149,11 +147,6 @@
     };
   </script>
 
-  <div class="ambient" aria-hidden="true">
-    <div class="ambient__orb ambient__orb--1"></div>
-    <div class="ambient__orb ambient__orb--2"></div>
-    <div class="ambient__orb ambient__orb--3"></div>
-  </div>
   <div class="grain" aria-hidden="true"></div>
 
   <a href="#inicio" class="skip-link" data-i18n="skip">Saltar al contenido</a>
@@ -171,13 +164,14 @@
       <ul class="nav__menu" id="navMenu">
         <li><a href="#nuevo" class="nav__link nav__link--cta" data-i18n="nav.latest">Lo más nuevo</a></li>
         <li><a href="#sobre-mi" class="nav__link" data-i18n="nav.about">Sobre mí</a></li>
-        <li class="nav__item--optional"><a href="#filosofia" class="nav__link" data-i18n="nav.philosophy">Filosofía</a></li>
-        <li><a href="#soundcloud" class="nav__link" data-i18n="nav.soundcloud">SoundCloud</a></li>
-        <li><a href="#boveda" class="nav__link nav__link--archive" data-open-archive data-i18n="nav.archive" data-i18n-title="nav.archiveTitle">Mis mezclas (descargar)</a></li>
-        <li class="nav__item--optional"><a href="#ideal-para" class="nav__link" data-i18n="nav.audience">Ideal para</a></li>
+        <li><a href="#boveda" class="nav__link nav__link--archive" data-open-archive data-i18n="nav.archive" data-i18n-title="nav.archiveTitle">Mezclas</a></li>
         <li><a href="#servicios" class="nav__link" data-i18n="nav.services">Servicios</a></li>
+        <li class="nav__item--optional"><a href="#filosofia" class="nav__link" data-i18n="nav.philosophy">Filosofía</a></li>
         <li class="nav__item--optional"><a href="#proceso" class="nav__link" data-i18n="nav.process">Proceso</a></li>
-        <li class="nav__item--optional"><a href="#experiencia" class="nav__link" data-i18n="nav.experience">Experiencia</a></li>
+        <li class="nav__item--extra"><a href="#soundcloud" class="nav__link" data-i18n="nav.soundcloud">SoundCloud</a></li>
+        <li class="nav__item--extra"><a href="#ideal-para" class="nav__link" data-i18n="nav.audience">Ideal para</a></li>
+        <li class="nav__item--extra"><a href="#experiencia" class="nav__link" data-i18n="nav.experience">Experiencia</a></li>
+        <li><a href="https://tv.luzodj.com" class="nav__link nav__link--photo" data-i18n="nav.photo" data-i18n-title="nav.photoTitle">Fotografía</a></li>
         <li><a href="#contacto" class="nav__link nav__link--cta" data-i18n="nav.contact">Contacto</a></li>
       </ul>
     </nav>
@@ -203,6 +197,12 @@
             <a href="#boveda" class="btn btn--ghost" data-open-archive data-i18n="hero.archive">Mis mezclas (para descargarlas)</a>
             <a href="https://wa.me/5214771595715?text=Hola%20Luzo,%20escuch%C3%A9%20tu%20propuesta%20musical%20y%20me%20gustar%C3%ADa%20platicar%20sobre%20mi%20espacio." class="btn btn--ghost" id="heroCta" data-i18n="hero.cta">Hablemos de tu espacio</a>
           </div>
+          <ul class="hero__signals reveal" aria-label="Resumen LUZO" data-i18n-aria="hero.signalsAria">
+            <li data-i18n="hero.signal.1">Rooftops</li>
+            <li data-i18n="hero.signal.2">Bares</li>
+            <li data-i18n="hero.signal.3">Restaurantes</li>
+            <li data-i18n="hero.signal.4">Eventos privados</li>
+          </ul>
         </div>
         <div class="hero__visual reveal">
           <div class="hero__portrait">
@@ -461,10 +461,6 @@
               <a href="https://www.instagram.com/andres._zm/" class="contact-link" id="linkInstagram" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor" stroke="none"/></svg>
                 Instagram
-              </a>
-              <a href="mailto:hola@luzodj.com" class="contact-link" id="linkEmail" data-i18n-aria="contact.emailAria">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                hola@luzodj.com
               </a>
             </div>
           </div>

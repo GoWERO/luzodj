@@ -36,7 +36,6 @@
   }
 
   setHref("linkInstagram", config.instagram);
-  setHref("linkEmail", config.email);
   setHref("linkSoundcloud", config.soundcloud);
   if (win.LuzoI18n) {
     setHref("linkWhatsapp", win.LuzoI18n.whatsappUrl());
@@ -428,6 +427,7 @@
     if (!navMenu || !navToggle) return;
     navMenu.classList.remove("nav__menu--open");
     navToggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
   }
 
   function showArchiveReveals() {
@@ -565,13 +565,17 @@
     navToggle.addEventListener("click", function () {
       var open = navMenu.classList.toggle("nav__menu--open");
       navToggle.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("nav-open", open);
     });
 
     navMenu.querySelectorAll(".nav__link").forEach(function (link) {
       link.addEventListener("click", function () {
-        navMenu.classList.remove("nav__menu--open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeMobileNav();
       });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMobileNav();
     });
   }
 

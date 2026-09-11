@@ -18,8 +18,10 @@
       "nav.about": "Sobre mí",
       "nav.philosophy": "Filosofía",
       "nav.soundcloud": "SoundCloud",
-      "nav.archive": "Mis mezclas (descargar)",
+      "nav.archive": "Mezclas",
       "nav.archiveTitle": "Sets y mezclas para escuchar y descargar",
+      "nav.photo": "Fotografía",
+      "nav.photoTitle": "LUZO TV — mi portafolio de fotografía y dirección visual",
       "nav.audience": "Ideal para",
       "nav.services": "Servicios",
       "nav.process": "Proceso",
@@ -36,6 +38,11 @@
       "hero.archive": "Mis mezclas (para descargarlas)",
       "hero.cta": "Hablemos de tu espacio",
       "hero.imgAlt": "LUZO — DJ y selector de atmósferas sonoras en sesión",
+      "hero.signalsAria": "Espacios ideales para LUZO",
+      "hero.signal.1": "Rooftops",
+      "hero.signal.2": "Bares",
+      "hero.signal.3": "Restaurantes",
+      "hero.signal.4": "Eventos privados",
       "about.label": "Sobre mí",
       "about.title": "Música con intención",
       "about.lead":
@@ -135,7 +142,6 @@
       "contact.desc":
         "Cuéntame qué experiencia quieres construir y prepararé una propuesta musical pensada específicamente para tu espacio.",
       "contact.cta": "Hablemos de tu espacio",
-      "contact.emailAria": "Enviar correo a hola@luzodj.com",
       "footer.tagline": "DJ · Selector · Curador de atmósferas",
       "footer.copy": "Todos los derechos reservados.",
       "filter.all": "TODAS",
@@ -163,8 +169,10 @@
       "nav.about": "About",
       "nav.philosophy": "Philosophy",
       "nav.soundcloud": "SoundCloud",
-      "nav.archive": "My mixes (download)",
+      "nav.archive": "Mixes",
       "nav.archiveTitle": "Sets and mixes to listen and download",
+      "nav.photo": "Photography",
+      "nav.photoTitle": "LUZO TV — my photography and visual direction portfolio",
       "nav.audience": "Ideal for",
       "nav.services": "Services",
       "nav.process": "Process",
@@ -181,6 +189,11 @@
       "hero.archive": "My mixes (download)",
       "hero.cta": "Let's talk about your space",
       "hero.imgAlt": "LUZO — DJ and sonic atmosphere selector performing",
+      "hero.signalsAria": "Ideal spaces for LUZO",
+      "hero.signal.1": "Rooftops",
+      "hero.signal.2": "Bars",
+      "hero.signal.3": "Restaurants",
+      "hero.signal.4": "Private events",
       "about.label": "About me",
       "about.title": "Music with intention",
       "about.lead":
@@ -278,7 +291,6 @@
       "contact.desc":
         "Tell me what experience you want to build and I will prepare a musical proposal tailored to your space.",
       "contact.cta": "Let's talk about your space",
-      "contact.emailAria": "Send email to hola@luzodj.com",
       "footer.tagline": "DJ · Selector · Atmosphere curator",
       "footer.copy": "All rights reserved.",
       "filter.all": "ALL",
@@ -399,6 +411,14 @@
     if (win.LUZO_CONFIG) win.LUZO_CONFIG.whatsapp = url;
   }
 
+  /* El portafolio de fotografía vive en otro dominio: el idioma viaja en la liga. */
+  function updatePhotoLink() {
+    document.querySelectorAll(".nav__link--photo").forEach(function (el) {
+      var base = (el.getAttribute("href") || "").split("?")[0];
+      el.href = currentLang === "es" ? base : base + "?lang=" + currentLang;
+    });
+  }
+
   function updateLangSwitch() {
     document.querySelectorAll("[data-lang-set]").forEach(function (btn) {
       var lang = btn.getAttribute("data-lang-set");
@@ -419,6 +439,7 @@
     applyTextNodes();
     updateMeta();
     updateWhatsAppLinks();
+    updatePhotoLink();
     updateLangSwitch();
     win.dispatchEvent(
       new CustomEvent("luzo:langchange", { detail: { lang: currentLang } })
@@ -440,6 +461,7 @@
     applyTextNodes();
     updateMeta();
     updateWhatsAppLinks();
+    updatePhotoLink();
     updateLangSwitch();
     initSwitch();
   }
